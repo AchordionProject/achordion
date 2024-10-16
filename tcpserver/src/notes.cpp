@@ -1,61 +1,42 @@
 #include <iostream>
 #include <cmath>
-#include <map>
+#include <vector>
+#include <string>
 
-#define A4_FREQ 440.0
+// Reference frequency for A4
+const double A4_FREQ = 440.0;
 
-
-enum class Interval: int {
-    P1 = 0, m2, M2, m3, M3, P4, TT, P5, m6, M6, m7, M7, P8,
-};
-
-enum class Notes : int{
-    A, As, Bb, B, C, Cs, Db, D, Ds, Eb, E, F, Fs, Gb, G, Gs, Ab
-
-};
-
-std::string note_to_string(Notes note)
-{
-    switch (note) {
-    case Notes::A: return "A";
-    case Notes::As: return "A#";
-    case Notes::Bb: return "Bb";
-    case Notes::B: return "B";
-    case Notes::C: return "C";
-    case Notes::Cs: return "C#";
-    case Notes::Db: return "Db";
-    case Notes::D: return "D";
-    case Notes::Ds: return "D#";
-    case Notes::Eb: return "Eb";
-    case Notes::E: return "E";
-    case Notes::F: return "F";
-    case Notes::Fs: return "F#";
-    case Notes::Gb: return "Gb";
-    case Notes::G: return "G";
-    case Notes::Gs: return "G#";
-    case Notes::Ab: return "Ab";
-    default: return "";
-    }
+// Function to calculate the frequency of a note given its half steps from A4
+double calculateFrequency(int halfStepsFromA4) {
+    return A4_FREQ * pow(2.0, halfStepsFromA4 / 12.0);
 }
 
-
-double calculate_frequency(Interval interval)
-{
-    return A4_FREQ * pow(2.0, static_cast<int>(interval) / 12.0);
-}
-
-int main()
-{
-    std::map<Notes, Interval> note_map = {
-        {Notes::A, Interval::P1}, {Notes::As, Interval::m2}, {Notes::Bb, Interval::M2},
-        {Notes::B, Interval::M2}, {Notes::C, Interval::m3}, {Notes::Cs, Interval::M3},
-        {Notes::Db, Interval::M3}, {Notes::D, Interval::P4}, {Notes::Ds, Interval::TT},
-        {Notes::Eb, Interval::TT}, {Notes::E, Interval::P5}, {Notes::F, Interval::m6},
-        {Notes::Fs, Interval::M6}, {Notes::Gb, Interval::M6}, {Notes::G, Interval::m7},
-        {Notes::Gs, Interval::M7}, {Notes::Ab, Interval::M7}
+// Function to print the frequencies for all 7 octaves of piano keys (starting from C and ending at B)
+void assignPianoKeysToFrequencies() {
+    // Vector of pairs (note, half steps from A4), ordered from C to B
+    std::vector<std::pair<std::string, int>> noteMap = {
+        {"C", -9}, {"C#", -8}, {"Db", -8}, {"D", -7}, {"D#", -6}, {"Eb", -6},
+        {"E", -5}, {"F", -4}, {"F#", -3}, {"Gb", -3}, {"G", -2}, {"G#", -1},
+        {"Ab", -1}, {"A", 0}, {"A#", 1}, {"Bb", 1}, {"B", 2}
     };
-    for(auto [note, interval]: note_map){
-        double frequency = calculate_frequency(interval);
-        std::cout << note_to_string(note) << ": " << frequency << " Hz" << std::endl;
+
+    for (int octave = 1; octave <= 7; ++octave) {
+        std::cout << "Octave " << octave << " frequencies:\n";
+        for (const auto& notePair : noteMap) {
+            std::string note = notePair.first;
+            int halfStepsFromA4 = notePair.second;
+
+            // Calculate how far the note is from A4 in terms of octaves
+            int totalHalfSteps = halfStepsFromA4 + (octave - 4) * 12;
+            double frequency = calculateFrequency(totalHalfSteps);
+
+            std::cout << note << octave << ": " << frequency << " Hz\n";
+        }
+        std::cout << "----------------------------\n";
     }
+}
+
+int main() {
+    assignPianoKeysToFrequencies();
+    return 0;
 }
