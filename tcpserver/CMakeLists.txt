@@ -21,9 +21,12 @@ FetchContent_Declare(
   GIT_DEPTH 1
 )
 
+set(PROTOCOL_SOURCE_PATH ${CMAKE_SOURCE_DIR}/../protocol/src)
+
 FetchContent_MakeAvailable(asio)
 
-set(SOURCES src/main.cpp)
+set(SOURCES src/main.cpp src/server.cpp)
 
 add_executable(achordion_server ${SOURCES})
 target_include_directories(achordion_server PRIVATE ${asio_SOURCE_DIR}/asio/include)
+target_include_directories(achordion_server PRIVATE ${PROTOCOL_SOURCE_PATH})
