@@ -14,8 +14,6 @@ public class HelloController {
     private Label AnyText;
     @FXML
     private TextField textField;
-    @FXML
-    private Label outputLabel;
 
     @FXML
     protected void onStartPageButtonClick() {
