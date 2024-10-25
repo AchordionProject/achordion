@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.HelloController">
+   <Label fx:id="AnyText" style="-fx-font-size: 26;" text="Welcome to Achordion!" />
+   <Button mnemonicParsing="false" onAction="#onStartPageButtonClick" text="Click to Play" />
+   <Button mnemonicParsing="false" text="Click to Listen" />
+   <HBox alignment="CENTER" spacing="10.0">
+      <TextField fx:id="textField" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
+   </HBox>
+</VBox>
