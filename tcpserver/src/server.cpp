@@ -1,24 +1,24 @@
 #include "server.hpp"
 #include "protocol.h"
 
-bool AchordionServer::OnClientConnect(std::shared_ptr<olc::net::connection<CustomMsgTypes>> client)
+bool AchordionServer::OnClientConnect(std::shared_ptr<olc::net::connection<MessageType>> client)
 {
-    olc::net::message<CustomMsgTypes> msg;
-    msg.header.id = CustomMsgTypes::ServerAccept;
+    olc::net::message<MessageType> msg;
+    msg.header.id = MessageType::ServerAccept;
     client->Send(msg);
     return true;
 }
 
-void AchordionServer::OnClientDisconnect(std::shared_ptr<olc::net::connection<CustomMsgTypes>> client)
+void AchordionServer::OnClientDisconnect(std::shared_ptr<olc::net::connection<MessageType>> client)
 {
     std::cout << "Removing client [" << client->GetID() << "]\n";
 }
 
-void AchordionServer::OnMessage(std::shared_ptr<olc::net::connection<CustomMsgTypes>> client, olc::net::message<CustomMsgTypes>& msg)
+void AchordionServer::OnMessage(std::shared_ptr<olc::net::connection<MessageType>> client, olc::net::message<MessageType>& msg)
 {
     switch (msg.header.id)
         {
-        case CustomMsgTypes::ServerPing:
+        case MessageType::ServerPing:
             {
                 std::cout << "[" << client->GetID() << "]: Server Ping\n";
 
