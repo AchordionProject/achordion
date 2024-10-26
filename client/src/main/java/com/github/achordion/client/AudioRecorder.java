@@ -16,7 +16,7 @@ public class AudioRecorder {
         //paramters (SamepleRate, sampleSizeInBits, Channels(1 is mono, 2 is stereo,true for singed integer,
         //true for bigEndian byte order(false is little Endian)
         Format = new AudioFormat(44100, 16, 1, true, true);
-    };
+    }
     //the string filepath is for saving the audio clip
     public void startRecording(File tempFile) {
         try{
