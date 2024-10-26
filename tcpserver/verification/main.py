@@ -1,11 +1,30 @@
 #!/usr/bin/env python3
 
 import socket
+import wave
 import enum
-from typing import Optional
-sock = socket.socket()
-sock.connect(("localhost", 60000))
-print("Connected to server!")
+import numpy as np
+from typing import Optional, Tuple
+
+from numpy._typing import NDArray
+
+
+def read_wavfile(filename: str) -> Tuple[NDArray, int] :
+    with wave.open(filename, 'rb') as wav_file:
+        n_channels = wav_file.getnchannels()
+        frame_rate = wav_file.getframerate()
+        n_frames = wav_file.getnframes()
+        frames = wav_file.readframes(n_frames)
+        audio_data = np.frombuffer(frames, dtype=np.int16)  # Assuming 16-bit PCM
+        if n_channels > 1:
+            audio_data = audio_data.reshape(-1, n_channels).mean(axis=1)
+        return audio_data, frame_rate
+
+def get_next_samples(audio_data: NDArray, n_samples: int) -> Tuple[NDArray, NDArray]:
+    print(audio_data.size)
+    samples = audio_data[:n_samples]
+    audio_data = audio_data[n_samples:]
+    return audio_data, samples
 
 class MessageType(enum.Enum):
     ServerPing = 0
@@ -38,14 +57,33 @@ class Packet:
         body = sock.recv(mlen)
         return Packet(MessageType(mtype), body)
 
-    
+def test():
+    audio_data, frame_rate = read_wavfile("c-major.wav")
+    print("Frame_rate: ", frame_rate)
+    print("Data: ", audio_data)
 
-packet: Optional[Packet] = None
-packet = Packet.receive_packet(sock)
-print(packet) 
-packet = Packet(MessageType.ChordRecognition, "Hello World!".encode("utf-8"))
-packet.send(sock)
 
-while(True):
-    print(packet) 
+
+def main():
+    sock = socket.socket()
+    sock.connect(("localhost", 60000))
+    print("Connected to server!")
+    packet: Optional[Packet] = None
     packet = Packet.receive_packet(sock)
+    print(packet) 
+
+    audio_data, frame_rate = read_wavfile("c-major.wav")
+    audio_data, samples = get_next_samples(audio_data, 44100)
+
+
+    while(True):
+        if samples.size == 0:
+            continue
+        packet = Packet(MessageType.ChordRecognition, samples.tobytes())
+        packet.send(sock)
+        packet = Packet.receive_packet(sock)
+        print(packet)
+        audio_data, samples = get_next_samples(audio_data, 44100)
+
+if __name__ == "__main__":
+    main()

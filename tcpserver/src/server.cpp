@@ -1,3 +1,4 @@
+#include <iostream>
 #include "server.hpp"
 #include "protocol.h"
 
@@ -27,6 +28,16 @@ void AchordionServer::OnMessage(std::shared_ptr<olc::net::connection<MessageType
             }
             break;
 
-
+        case MessageType::ChordRecognition:
+            {
+                // call fft
+                // recongize the chord
+                olc::net::message<MessageType> response;
+                response.header.id = MessageType::ChordRecognition;
+                // push recognized chord onto response message
+                response << "Recognized chord";
+                client->Send(response);
+            }
+            break;
         }
 }
