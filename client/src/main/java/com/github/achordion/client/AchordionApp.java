@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class AchordionApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Start-View.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AchordionApp.class.getResource("Start-View.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 240, 360);
-        stage.setTitle("Hello!");
+        stage.setTitle("Achordion.exe");
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.setFullScreenExitHint("");
