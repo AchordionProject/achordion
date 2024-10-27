@@ -15,9 +15,9 @@ def read_wavfile(filename: str) -> Tuple[NDArray, int] :
         frame_rate = wav_file.getframerate()
         n_frames = wav_file.getnframes()
         frames = wav_file.readframes(n_frames)
-        audio_data = np.frombuffer(frames, dtype=np.int16)  # Assuming 16-bit PCM
-        if n_channels > 1:
-            audio_data = audio_data.reshape(-1, n_channels).mean(axis=1)
+        audio_data = np.frombuffer(frames, dtype=np.uint16)  # Assuming 16-bit PCM
+        audio_data = audio_data.reshape(-1, n_channels)
+        audio_data = audio_data[:, 0]
         return audio_data, frame_rate
 
 def get_next_samples(audio_data: NDArray, n_samples: int) -> Tuple[NDArray, NDArray]:
