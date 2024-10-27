@@ -2,11 +2,21 @@ package com.github.achordion.client;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.event.ActionEvent;
 public class SecondWindowController {
     @FXML
     private Label ipAddressLabel;
     //this is the variable from the start-view window
     private String ipAddress;
+    @FXML
+    private ToggleButton recordButton;
+    @FXML
+    public void initialize(){
+        String css = getClass().getResource("/com/github/achordion/client/CssStyles/toggleButton.css").toExternalForm();
+        recordButton.getStylesheets().add(css);
+        recordButton.getStyleClass().add("toggle-button");
+    }
     @FXML
     public void setIpAddress(String ipAddress){
         //the ipAddress from the preview winodow has been verified if we make it this far
@@ -27,4 +37,14 @@ public class SecondWindowController {
         //just sets a label with it now
         ipAddressLabel.setText("Connected to: "+ ipAddress);
     }
+
+    @FXML
+    public void onRecordingClicked(ActionEvent event){
+            if(recordButton.isSelected()) {
+                recordButton.setText("Stop Recording");
+                System.out.println("Recording is selected");
+            }else
+                System.out.println("Recording is not selected");
+    }
+
 }
