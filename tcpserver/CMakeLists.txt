@@ -39,7 +39,7 @@ set(KISSFFT_TEST OFF CACHE BOOL "Disable Kiss FFT tests")
 FetchContent_MakeAvailable(kissfft)
 
 
-set(SOURCES src/main.cpp src/server.cpp)
+set(SOURCES src/main.cpp src/server.cpp src/recognition.cpp)
 
 add_executable(achordion_server ${SOURCES})
 target_link_libraries(achordion_server PRIVATE kissfft)

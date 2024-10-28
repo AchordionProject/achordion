@@ -74,7 +74,7 @@ def main():
 
     audio_data, frame_rate = read_wavfile("c-major.wav")
     audio_data, samples = get_next_samples(audio_data, 44100)
-
+    sent = False
 
     while(True):
         if samples.size == 0:

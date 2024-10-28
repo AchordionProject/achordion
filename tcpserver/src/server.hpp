@@ -1,5 +1,7 @@
 #pragma once
 #include "protocol.h"
+#include "recognition.hpp"
+#include "note.hpp"
 
 enum class MessageType : uint32_t
 {
@@ -11,6 +13,9 @@ enum class MessageType : uint32_t
 
 class AchordionServer : public olc::net::server_interface<MessageType>
 {
+private:
+    Recognizer recognizer;
+
 public:
     AchordionServer(uint16_t nPort) : olc::net::server_interface<MessageType>(nPort) {}
 
