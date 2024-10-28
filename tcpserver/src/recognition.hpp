@@ -8,10 +8,10 @@
 #include "kiss_fft.h"
 #include "note.hpp"
 
-#define N 2048
-#define Nd2 1024
+#define N 4096
+#define Nd2 2048
 #define TWO_BYTE_MAX 32768.0f
-#define DELTA 10.0f
+#define DELTA 40.0f
 
 class Recognizer
 {

@@ -1,4 +1,5 @@
 #include "recognition.hpp"
+#include <numeric>
 
 void Recognizer::store_fft(const std::vector<uint8_t>& input)
 {
@@ -37,15 +38,22 @@ void Recognizer::store_fft(const std::vector<uint8_t>& input)
 std::vector<int> Recognizer::detect_peaks()
 {
     std::vector<float> magnitudes(Nd2);
+
     for(size_t i = 0; i < Nd2; i++) {
         magnitudes[i] = std::sqrt(this->out[i].r * this->out[i].r +
                                   this->out[i].i * this->out[i].i);
     }
+    float avg = 2 * std::accumulate(magnitudes.begin(), magnitudes.end(), 0.0f) / magnitudes.size();
+    constexpr int window = 50;
     std::vector<int> peak_indices;
-    for(size_t i = 1; i < Nd2 - 1; i++) {
-        float dl = magnitudes[i] - magnitudes[i - 1];
-        float dh = magnitudes[i] - magnitudes[i + 1];
-        if(dl > DELTA && dh > DELTA) {
+    for(size_t i = window; i < Nd2 - window; i++) {
+        float left_avg = std::accumulate(magnitudes.begin() + i - window, magnitudes.begin() + i - 1, 0.0f) / window;
+        float right_avg = std::accumulate(magnitudes.begin() + i + 1, magnitudes.begin() + i + window, 0.0f) / window;
+        //        printf("Left avg %lf\n", left_avg);
+        //        printf("Right avg %lf\n", right_avg);
+        float dl = magnitudes[i] - left_avg;
+        float dr = magnitudes[i] - right_avg;
+        if(avg < dr && dl > avg) {
             peak_indices.push_back(i);
         }
     }

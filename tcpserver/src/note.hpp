@@ -84,7 +84,7 @@ public:
 
     static Note get_note_from_halfsteps(int halfsteps) {
         // Normalize within 0 to 11 for chromatic scale
-        int8_t position = abs(halfsteps % 12);
+        int8_t position = ((halfsteps % 12) + 12) % 12;
 
         for (auto base : {BaseNote::A, BaseNote::B, BaseNote::C, BaseNote::D, BaseNote::E, BaseNote::F, BaseNote::G}) {
             int8_t baseValue = static_cast<int8_t>(base);

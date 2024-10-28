@@ -34,10 +34,10 @@ void AchordionServer::OnMessage(std::shared_ptr<olc::net::connection<MessageType
                 this->recognizer.store_fft(bytes);
                 std::vector<int> peaks = this->recognizer.detect_peaks();
                 std::vector<Note> notes = Note::get_notes(peaks);
-                for(Note n: notes) {
-                    std::cout << n.to_string() << std::endl;
+                for(size_t i = 0; i < peaks.size(); i++) {
+                    std::cout << peaks[i] << " : " << notes[i].to_string()  << std::endl;
                 }
-                std::cout << "Recognized" << std::endl;
+                std::cout << "------------------------------------------" << std::endl;
                 olc::net::message<MessageType> response;
                 response.header.id = MessageType::ChordRecognition;
                 // push recognized chord onto response message
