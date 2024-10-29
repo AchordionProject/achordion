@@ -14,7 +14,7 @@ void Recognizer::store_fft(const std::vector<uint8_t>& input)
                                                   (input[(i * N) + n_sample * 2] << 8) |
                                                   (input[(i * N) + n_sample * 2 + 1])
                                                   );
-            fft_input[n_sample].r = sample / TWO_BYTE_MAX;
+            fft_input[n_sample].r = sample;
             fft_input[n_sample].i = 0.0f;
 
         }

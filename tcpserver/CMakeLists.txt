@@ -36,10 +36,11 @@ FetchContent_MakeAvailable(asio)
 set(KISSFFT_STATIC ON CACHE BOOL "Compile static Kiss FFT")
 set(KISSFFT_TOOLS OFF CACHE BOOL "Disable Kiss FFT tools")
 set(KISSFFT_TEST OFF CACHE BOOL "Disable Kiss FFT tests")
+set(KISSFFT_DATATYPE "int16_t" CACHE STRING "Set datatype for Kiss FFT")
 FetchContent_MakeAvailable(kissfft)
 
 
-set(SOURCES src/main.cpp src/server.cpp src/recognition.cpp)
+set(SOURCES src/main.cpp src/server.cpp src/recognition.cpp src/note.cpp)
 
 add_executable(achordion_server ${SOURCES})
 target_link_libraries(achordion_server PRIVATE kissfft)
