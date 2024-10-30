@@ -1,5 +1,6 @@
 package com.github.achordion.client;
 
+import com.github.achordion.client.protocol.Connection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.regex.Pattern;
 
 
@@ -22,11 +25,14 @@ public class StartPageController {
     private Label AnyText;
     @FXML
     private TextField textField;
+
     @FXML
     private Stage primaryStage;
+
     public void setPrimaryStage(Stage stage){
         this.primaryStage = stage;
     }
+
     @FXML
     protected void onClickToConnectClicked() {
 
@@ -38,7 +44,15 @@ public class StartPageController {
                 Parent root = loader.load();
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();
-                secondWController.setIpAddress(inputText);
+                Socket socket = new Socket(inputText, 60000);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Connected!");
+                alert.setHeaderText("ipAddress");
+                alert.setContentText(("Connected to server"));
+                alert.showAndWait();
+                Connection connection = new Connection(socket);
+                secondWController.setConnection(connection);
+
                 //Anytext must be changed
                 Stage stage = (Stage) AnyText.getScene().getWindow();
                 stage.setScene(new Scene(root));
@@ -89,5 +103,27 @@ public class StartPageController {
         primaryStage.requestFocus();
     }
 
+    @FXML
+    public void connectToAddress(){
+        //ipAddress is the address the user entered
+        //just sets a label with it now
+        try{
+            Socket Achordionsocket = new Socket(ipAddress, 60000);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Connected!");
+            alert.setHeaderText("ipAddress");
+            alert.setContentText(("Connected to server"));
+            alert.showAndWait();
+            outputStream = Achordionsocket.getOutputStream();
+        }catch(IOException e){
+            System.out.println("Error connecting to server");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("ERROR");
+            alert.setContentText(("Problem connecting to the server"));
+            alert.showAndWait();
+        }
+        ipAddressLabel.setText("Connected to: "+ ipAddress);
+    }
 
 }

@@ -2,9 +2,9 @@ package com.github.achordion.client.protocol;
 
 public class Packet<T extends Enum<T>> {
     private T mtype;
-    private char[] body;
+    private byte[] body;
 
-    public Packet(T mtype, char[] body){
+    public Packet(T mtype, byte[] body){
         this.mtype = mtype;
         this.body = body;
     }
@@ -14,7 +14,7 @@ public class Packet<T extends Enum<T>> {
     public T getType(){
         return this.mtype;
     }
-    public char[] getBody(){
+    public byte[] getBody(){
         return this.body;
     }
 }
