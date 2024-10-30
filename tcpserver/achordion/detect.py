@@ -1,4 +1,6 @@
-from typing import List, Tuple
+from typing import List, Tuple, Set
+from collections import Counter
+import io
 import numpy as np
 import librosa
 
@@ -21,3 +23,13 @@ def recognize_notes(samples: np.ndarray, sr: int | float) -> List[Tuple[float, N
 
     return notes
 
+def filter_notes(notes: List[Note]) -> Set[Note]:
+    counter = Counter(notes)
+    return { note for note, count in counter.items() if count >= 2 }
+
+def run(file_obj: io.BytesIO) -> Set[Note]:
+    samples, sr = librosa.load(file_obj)
+    notes = recognize_notes(samples, sr)
+    notes = list(map(lambda tuple: tuple[1], notes))
+    notes = filter_notes(notes)
+    return notes
