@@ -1,5 +1,6 @@
 package com.github.achordion.client;
 
+import com.github.achordion.client.protocol.Packet;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
