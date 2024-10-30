@@ -1,32 +1,25 @@
 #!/usr/bin/env python3
 
-from typing import List, Set, Tuple
-import librosa
-import numpy as np
-import io
-from achordion.note import Note
-from achordion.detect import recognize_notes
-from collections import Counter, OrderedDict
+import asyncio
 
-def filter_notes(notes: List[Note]) -> Set[Note]:
-    counter = Counter(notes)
-    return { note for note, count in counter.items() if count >= 2 }
+import socket
 
-if __name__ == "__main__":
-    audio_file_path = "a7-chord.wav"  # Replace with your .wav file path
-    with open(audio_file_path, 'rb') as f:
-        file_bytes = f.read()
-    file_obj = io.BytesIO(file_bytes)
+from achordion.client import ClientInterface, MESSAGE_ACTIONS
 
-    samples, sr = librosa.load("a7-chord.wav")
+HOST = "127.0.0.1"
+PORT = 60000
 
-    notes = recognize_notes(samples, sr)
-    notes = list(map(lambda tuple: tuple[1], notes))
-    notes = filter_notes(notes)
+async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+    client_interface = ClientInterface(reader, writer)
+    while True:
+        packet = await client_interface.receive()
+        packet_to_send = MESSAGE_ACTIONS[packet.mtype](packet.body)
+        await client_interface.send(packet)
 
-    for note in notes:
-        print(f"Note: {note}")
-    #for freq, note in notes:
-    #    print(f"Frequency: {freq:.2f} Hz, Note: {note}")
+async def main():
+    server = await asyncio.start_server(handle_client, HOST, PORT)
+    print(f"Listening on {HOST}:{PORT}")
+    async with server:
+        await server.serve_forever()
 
-
+asyncio.run(main())
