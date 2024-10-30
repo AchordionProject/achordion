@@ -1,35 +1,35 @@
 package com.github.achordion.client.protocol;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
-public class Connection<T extends Enum<T>> {
-    private Socket socket;
-    private PrintWriter out;
-    private BufferedReader in;
+public class Connection {
+    private OutputStream out;
+    private InputStream in;
 
-    public Connection(Socket socket) {
-        this.socket = socket;
+    public Connection(Socket socket) throws IOException {
+        this.out = socket.getOutputStream();
+        this.in = socket.getInputStream();
     }
 
-    public void send(Packet<T> packet) {
-        char[] typeBytes = Utilities.intToCharArray(packet.getType().ordinal());
-        this.out.print(typeBytes);
-        char[] bodySize = Utilities.intToCharArray(packet.getSize());
-        this.out.print(bodySize);
-        this.out.print(packet.getBody());
+    public void send(Packet<Mtype> packet) throws IOException {
+        byte[] typeBytes = Utilities.intToByteArray(packet.getType().ordinal());
+        this.out.write(typeBytes);
+        byte[] bodySize = Utilities.intToByteArray(packet.getSize());
+        this.out.write(bodySize);
+        this.out.write(packet.getBody());
+        this.out.flush();
     }
 
-    public void receive(){
-
-    }
-
-    public void setup() throws IOException {
-        this.out = new PrintWriter(this.socket.getOutputStream());
-        this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+    public Packet<Mtype> receive() throws IOException {
+        byte[] buf = new byte[4];
+        this.in.read(buf, 0, 4);
+        Mtype mtype = Mtype.values()[Utilities.byteArrayToInt(buf, 0)];
+        this.in.read(buf, 0, 4);
+        int bodySize = Utilities.byteArrayToInt(buf, 0);
+        buf = new byte[bodySize];
+        this.in.read(buf, 0, bodySize);
+        return new Packet<>(mtype, buf);
     }
 
 }
