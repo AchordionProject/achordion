@@ -2,6 +2,9 @@
 achordion_client
 achordion_server
 
+# Python
+venv
+
 ##### Windows
 # Windows thumbnail cache files
 Thumbs.db
