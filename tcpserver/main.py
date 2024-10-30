@@ -13,7 +13,7 @@ def filter_notes(notes: List[Note]) -> Set[Note]:
     return { note for note, count in counter.items() if count >= 2 }
 
 if __name__ == "__main__":
-    audio_file_path = "a7-chord.ogg"  # Replace with your .wav file path
+    audio_file_path = "a7-chord.wav"  # Replace with your .wav file path
     with open(audio_file_path, 'rb') as f:
         file_bytes = f.read()
     file_obj = io.BytesIO(file_bytes)

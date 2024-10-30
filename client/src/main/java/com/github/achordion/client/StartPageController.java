@@ -34,7 +34,7 @@ public class StartPageController {
         if(isValidIPAddress(inputText)){
             try {
                 //the teacherclickedviewFXML must be loaded
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("SecondWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Windows/SecondWindow.fxml"));
                 Parent root = loader.load();
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();

@@ -10,7 +10,7 @@ import java.io.IOException;
 public class AchordionApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(AchordionApp.class.getResource("Start-View.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(AchordionApp.class.getResource("Windows/Start-View.fxml"));
        //  root is put into the scene below
         Parent root = fxmlLoader.load();
 
