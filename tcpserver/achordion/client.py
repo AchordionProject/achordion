@@ -15,9 +15,9 @@ class MessageType(enum.Enum):
         file = io.BytesIO(body)
         notes = run(file)
         body_to_send = bytearray()
-        body_to_send += len(notes).to_bytes(4, "little")
+        body_to_send += len(notes).to_bytes(4, "big")
         for note in notes:
-            body_to_send += note.value.to_bytes(4, "little")
+            body_to_send += note.value.to_bytes(4, "big")
         return Packet(MessageType.CHORD, body_to_send)
 
 
@@ -42,9 +42,9 @@ class ClientInterface:
         self.writer = writer
         
     async def send(self, packet: Packet):
-        mtype_bytes = packet.mtype.value.to_bytes(4, "little")
+        mtype_bytes = packet.mtype.value.to_bytes(4, "big")
         self.writer.write(mtype_bytes) 
-        mlen_bytes = len(packet.body).to_bytes(4, "little")
+        mlen_bytes = len(packet.body).to_bytes(4, "big")
         self.writer.write(mlen_bytes)
         self.writer.write(packet.body)     
         await self.writer.drain()

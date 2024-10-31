@@ -26,6 +26,11 @@ public class SecondWindowController {
         String css = getClass().getResource("/com/github/achordion/client/CssStyles/toggleButton.css").toExternalForm();
         recordButton.getStylesheets().add(css);
         recordButton.getStyleClass().add("toggle-button");
+    }
+
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+        this.requestHandler = new RequestHandler();
         this.receiverThread = new Thread(() -> {
             System.out.println("Thread has started");
             while(true) {
@@ -39,11 +44,6 @@ public class SecondWindowController {
             }
         });
         this.receiverThread.start();
-    }
-
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-        this.requestHandler = new RequestHandler();
     }
 
     @FXML

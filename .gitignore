@@ -5,6 +5,9 @@ achordion_server
 # Python
 venv
 
+# Java
+target
+
 ##### Windows
 # Windows thumbnail cache files
 Thumbs.db
