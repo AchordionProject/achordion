@@ -13,6 +13,7 @@ public class Connection {
     }
 
     public void send(Packet<Mtype> packet) throws IOException {
+        System.out.println("Sending Mtype: " + packet.getType() + " Size: " + packet.getSize());
         byte[] typeBytes = Utilities.intToByteArray(packet.getType().ordinal());
         this.out.write(typeBytes);
         byte[] bodySize = Utilities.intToByteArray(packet.getSize());

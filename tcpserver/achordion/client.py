@@ -15,9 +15,9 @@ class MessageType(enum.Enum):
         file = io.BytesIO(body)
         notes = run(file)
         body_to_send = bytearray()
-        body_to_send += len(notes).to_bytes(4, "little")
+        body_to_send += len(notes).to_bytes(4, "big")
         for note in notes:
-            body_to_send += note.value.to_bytes(4, "little")
+            body_to_send += note.value.to_bytes(4, "big")
         return Packet(MessageType.CHORD, body_to_send)
 
 
@@ -33,24 +33,32 @@ class Packet:
         self.mtype = mtype
         self.body = body
 
+    def __repr__(self) -> str:
+        return f"Mtype: {self.mtype} Size: {len(self.body)} Body: {self.body[:20]}..."
+
 class ClientInterface:
     def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         self.reader = reader
         self.writer = writer
         
     async def send(self, packet: Packet):
-        mtype_bytes = packet.mtype.value.to_bytes(4, "little")
+        mtype_bytes = packet.mtype.value.to_bytes(4, "big")
         self.writer.write(mtype_bytes) 
-        mlen_bytes = len(packet.body).to_bytes(4, "little")
+        mlen_bytes = len(packet.body).to_bytes(4, "big")
         self.writer.write(mlen_bytes)
         self.writer.write(packet.body)     
         await self.writer.drain()
 
     async def receive(self) -> Packet:
         mtype_bytes = await self.reader.readexactly(4)
+        print("Received mtype!")
         message_len_bytes = await self.reader.readexactly(4)
-        mtype = int.from_bytes(mtype_bytes, byteorder="little")
-        mlen = int.from_bytes(message_len_bytes, byteorder="little")
+        print("Received mlen!")
+        mtype = int.from_bytes(mtype_bytes, byteorder="big")
+        mlen = int.from_bytes(message_len_bytes, byteorder="big")
+        print(f"mtype is {mtype}")
+        print(f"mlen is {mlen}")
         body = await self.reader.readexactly(mlen)
+        print("Received body!")
         return Packet(MessageType(mtype), body)
 
