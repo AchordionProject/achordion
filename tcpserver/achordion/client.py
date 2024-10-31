@@ -33,6 +33,9 @@ class Packet:
         self.mtype = mtype
         self.body = body
 
+    def __repr__(self) -> str:
+        return f"Mtype: {self.mtype} Size: {len(self.body)} Body: {self.body[:20]}..."
+
 class ClientInterface:
     def __init__(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         self.reader = reader
@@ -48,9 +51,14 @@ class ClientInterface:
 
     async def receive(self) -> Packet:
         mtype_bytes = await self.reader.readexactly(4)
+        print("Received mtype!")
         message_len_bytes = await self.reader.readexactly(4)
-        mtype = int.from_bytes(mtype_bytes, byteorder="little")
-        mlen = int.from_bytes(message_len_bytes, byteorder="little")
+        print("Received mlen!")
+        mtype = int.from_bytes(mtype_bytes, byteorder="big")
+        mlen = int.from_bytes(message_len_bytes, byteorder="big")
+        print(f"mtype is {mtype}")
+        print(f"mlen is {mlen}")
         body = await self.reader.readexactly(mlen)
+        print("Received body!")
         return Packet(MessageType(mtype), body)
 

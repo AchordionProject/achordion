@@ -9,7 +9,7 @@ public class Packet<T extends Enum<T>> {
         this.body = body;
     }
     public int getSize() {
-        return body.length;
+        return this.body.length;
     }
     public T getType(){
         return this.mtype;

@@ -14,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.regex.Pattern;
 
@@ -44,7 +45,9 @@ public class StartPageController {
                 Parent root = loader.load();
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();
-                Socket socket = new Socket(inputText, 60000);
+                System.out.println("I am right here!");
+                InetAddress addr = InetAddress.getByName(inputText);
+                Socket socket = new Socket(addr, 60000);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Connected!");
                 alert.setHeaderText("ipAddress");
@@ -101,29 +104,6 @@ public class StartPageController {
         alert.showAndWait();
         //when the alert is closed the start window will re-appear
         primaryStage.requestFocus();
-    }
-
-    @FXML
-    public void connectToAddress(){
-        //ipAddress is the address the user entered
-        //just sets a label with it now
-        try{
-            Socket Achordionsocket = new Socket(ipAddress, 60000);
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Connected!");
-            alert.setHeaderText("ipAddress");
-            alert.setContentText(("Connected to server"));
-            alert.showAndWait();
-            outputStream = Achordionsocket.getOutputStream();
-        }catch(IOException e){
-            System.out.println("Error connecting to server");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR");
-            alert.setHeaderText("ERROR");
-            alert.setContentText(("Problem connecting to the server"));
-            alert.showAndWait();
-        }
-        ipAddressLabel.setText("Connected to: "+ ipAddress);
     }
 
 }
