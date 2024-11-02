@@ -5,6 +5,8 @@ import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.handling.Note;
+import com.github.achordion.client.protocol.handling.events.ChordEvent;
+import com.github.achordion.client.protocol.handling.listeners.AchordListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -14,7 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class SecondWindowController {
+public class SecondWindowController implements AchordListener<ChordEvent> {
     @FXML
     private Label ipAddressLabel;
     private Connection connection;
@@ -33,13 +35,13 @@ public class SecondWindowController {
     public void setConnection(Connection connection) {
         this.connection = connection;
         this.requestHandler = new MainHandler();
+        this.requestHandler.addChordListener(this);
         this.receiverThread = new Thread(() -> {
             System.out.println("Thread has started");
             while(true) {
                 try {
                     Packet<MType> packet = this.connection.receive();
-                    List<Note> notes = this.requestHandler.handle(packet);
-                    System.out.println(notes);
+                    this.requestHandler.handle(packet);
                 } catch (Exception e) {
                     System.out.println("Something went wrong: " + e.getMessage());
                 }
@@ -70,4 +72,8 @@ public class SecondWindowController {
                 System.out.println("Recording is not selected");
     }
 
+    @Override
+    public void handleEvent(ChordEvent event) {
+        System.out.println(event.getNotes());
+    }
 }
