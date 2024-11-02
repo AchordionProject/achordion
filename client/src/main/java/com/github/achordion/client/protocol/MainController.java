@@ -1,29 +1,65 @@
 package com.github.achordion.client.protocol;
 
+import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.handling.Note;
+import com.github.achordion.client.protocol.handling.ReceiverThread;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
 import com.github.achordion.client.protocol.handling.listeners.AchordListener;
+import com.sun.tools.javac.Main;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
 
-public class MainHandler {
+public class MainController {
+    private static MainController instance;
 
     private List<AchordListener<ChordEvent>> chordListeners;
 
-    public MainHandler() {
+    private Connection connection;
+    private ReceiverThread receiverThread;
+
+    private MainController() {
         this.chordListeners = new ArrayList<>();
     }
 
+    public static MainController getInstance() {
+        if (instance == null) {
+            instance = new MainController();
+        }
+        return instance;
+    }
+
+    public void connect(String address, int port) throws IOException {
+        InetAddress addr = InetAddress.getByName(address);
+        Socket socket = new Socket(addr, port);
+        this.connection = new Connection(socket);
+        this.receiverThread = new ReceiverThread(this);
+        this.receiverThread.start();
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public boolean isConnected() {
+        return connection != null && connection.isConnected();
+    }
 
     public void handle(Packet<MType> packet) {
         switch (packet.getType()) {
             case CHORD -> {
+                System.out.println("CHORD event fired");
                 ChordEvent event = new ChordEvent(this, handleChordRequest(packet.getBody()));
                 sendToAll(chordListeners, event);
+            }
+            default -> {
+                System.out.println("Weird type of message: " + packet.getType());
             }
         }
     }

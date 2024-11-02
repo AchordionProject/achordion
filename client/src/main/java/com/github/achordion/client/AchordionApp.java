@@ -18,10 +18,10 @@ public class AchordionApp extends Application {
         //setting reference to start screen
         StartPageController startController = fxmlLoader.getController();
         startController.setPrimaryStage(stage);
-        Scene scene = new Scene(root, 240, 360);
+        Scene scene = new Scene(root, 980, 600);
         stage.setTitle("Achordion.exe");
         stage.setScene(scene);
-        stage.setFullScreen(true);
+        stage.setFullScreen(false);
         stage.setFullScreenExitHint("");
         stage.show();
     }

@@ -1,6 +1,8 @@
 package com.github.achordion.client.ui;
 
+import com.github.achordion.client.protocol.MainController;
 import com.github.achordion.client.protocol.core.Connection;
+import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,23 +41,19 @@ public class StartPageController {
         String inputText = textField.getText();
         if(isValidIPAddress(inputText)){
             try {
-                //the teacherclickedviewFXML must be loaded
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
                 Parent root = loader.load();
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();
-                System.out.println("I am right here!");
-                InetAddress addr = InetAddress.getByName(inputText);
-                Socket socket = new Socket(addr, 60000);
+                MainController maincontroller = MainController.getInstance();
+                maincontroller.connect(inputText, 60000);
+                maincontroller.addChordListener(secondWController);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Connected!");
                 alert.setHeaderText("ipAddress");
                 alert.setContentText(("Connected to server"));
                 alert.showAndWait();
-                Connection connection = new Connection(socket);
-                secondWController.setConnection(connection);
 
-                //Anytext must be changed
                 Stage stage = (Stage) AnyText.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -73,7 +71,6 @@ public class StartPageController {
         }
         else{
             invalidIPWarning();
-
         }
         textField.clear();
     }
