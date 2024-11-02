@@ -1,4 +1,4 @@
-package com.github.achordion.client;
+package com.github.achordion.client.ui;
 
 import javax.sound.sampled.*;
 import java.io.File;

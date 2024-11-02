@@ -1,4 +1,6 @@
-package com.github.achordion.client.protocol;
+package com.github.achordion.client.protocol.core;
+
+import com.github.achordion.client.protocol.Utilities;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,7 +14,7 @@ public class Connection {
         this.in = socket.getInputStream();
     }
 
-    public void send(Packet<Mtype> packet) throws IOException {
+    public void send(Packet<MType> packet) throws IOException {
         System.out.println("Sending Mtype: " + packet.getType() + " Size: " + packet.getSize());
         byte[] typeBytes = Utilities.intToByteArray(packet.getType().ordinal());
         this.out.write(typeBytes);
@@ -22,10 +24,10 @@ public class Connection {
         this.out.flush();
     }
 
-    public Packet<Mtype> receive() throws IOException {
+    public Packet<MType> receive() throws IOException {
         byte[] buf = new byte[4];
         this.in.read(buf, 0, 4);
-        Mtype mtype = Mtype.values()[Utilities.byteArrayToInt(buf, 0)];
+        MType mtype = MType.values()[Utilities.byteArrayToInt(buf, 0)];
         this.in.read(buf, 0, 4);
         int bodySize = Utilities.byteArrayToInt(buf, 0);
         buf = new byte[bodySize];

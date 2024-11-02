@@ -1,6 +1,6 @@
-package com.github.achordion.client;
+package com.github.achordion.client.ui;
 
-import com.github.achordion.client.protocol.Connection;
+import com.github.achordion.client.protocol.core.Connection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.regex.Pattern;
@@ -41,7 +40,7 @@ public class StartPageController {
         if(isValidIPAddress(inputText)){
             try {
                 //the teacherclickedviewFXML must be loaded
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Windows/SecondWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
                 Parent root = loader.load();
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();

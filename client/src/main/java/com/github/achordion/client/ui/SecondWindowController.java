@@ -1,22 +1,24 @@
-package com.github.achordion.client;
+package com.github.achordion.client.ui;
 
 import com.github.achordion.client.protocol.*;
+import com.github.achordion.client.protocol.core.Connection;
+import com.github.achordion.client.protocol.core.Packet;
+import com.github.achordion.client.protocol.core.MType;
+import com.github.achordion.client.protocol.handling.Note;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 
 public class SecondWindowController {
     @FXML
     private Label ipAddressLabel;
     private Connection connection;
-    private RequestHandler requestHandler;
+    private MainHandler requestHandler;
     Thread receiverThread;
     //this is the variable from the start-view window
     @FXML
@@ -30,12 +32,12 @@ public class SecondWindowController {
 
     public void setConnection(Connection connection) {
         this.connection = connection;
-        this.requestHandler = new RequestHandler();
+        this.requestHandler = new MainHandler();
         this.receiverThread = new Thread(() -> {
             System.out.println("Thread has started");
             while(true) {
                 try {
-                    Packet<Mtype> packet = this.connection.receive();
+                    Packet<MType> packet = this.connection.receive();
                     List<Note> notes = this.requestHandler.handle(packet);
                     System.out.println(notes);
                 } catch (Exception e) {
@@ -51,7 +53,7 @@ public class SecondWindowController {
         try{
             byte[] fileData = Files.readAllBytes(Paths.get(filePath));
             System.out.println("Length is: " + fileData.length);
-            Packet<Mtype> packet = new Packet<>(Mtype.CHORD, fileData);
+            Packet<MType> packet = new Packet<>(MType.CHORD, fileData);
             this.connection.send(packet);
             System.out.println("FILE SENT!!!!");
         }catch(IOException e){

@@ -1,4 +1,4 @@
-package com.github.achordion.client.protocol;
+package com.github.achordion.client.protocol.core;
 
 public class Packet<T extends Enum<T>> {
     private T mtype;

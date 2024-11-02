@@ -1,4 +1,4 @@
-package com.github.achordion.client.protocol;
+package com.github.achordion.client.protocol.handling;
 
 import java.util.List;
 
