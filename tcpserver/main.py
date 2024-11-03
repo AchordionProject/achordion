@@ -9,11 +9,9 @@ PORT = 60000
 
 async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
     client_interface = ClientInterface(reader, writer)
-    print("Got client")
     while True:
         packet = await client_interface.receive()
         packet_to_send = MESSAGE_ACTIONS[packet.mtype](packet.body)
-        print("To send:", packet_to_send)
         await client_interface.send(packet_to_send)
 
 async def main():

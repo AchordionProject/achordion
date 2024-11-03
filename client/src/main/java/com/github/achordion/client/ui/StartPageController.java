@@ -1,7 +1,8 @@
-package com.github.achordion.client;
+package com.github.achordion.client.ui;
 
+import com.github.achordion.client.protocol.MainController;
+import com.github.achordion.client.protocol.MainHandler;
 import com.github.achordion.client.protocol.AlertClass;
-import com.github.achordion.client.protocol.Connection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
@@ -41,19 +39,16 @@ public class StartPageController {
         String inputText = textField.getText();
         if(isValidIPAddress(inputText)){
             try {
-                //the teacherclickedviewFXML must be loaded
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Windows/SecondWindow.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
                 Parent root = loader.load();
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();
-                System.out.println("I am right here!");
-                InetAddress addr = InetAddress.getByName(inputText);
-                Socket socket = new Socket(addr, 60000);
+                MainController maincontroller = MainController.getInstance();
+                MainHandler mainhandler = MainHandler.getInstance();
+                maincontroller.connect(inputText, 60000);
+                mainhandler.addChordListener(secondWController);
                 AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
-                Connection connection = new Connection(socket);
-                secondWController.setConnection(connection);
 
-                //Anytext must be changed
                 Stage stage = (Stage) AnyText.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -62,8 +57,6 @@ public class StartPageController {
             }catch(IOException e){
                 AlertClass.ShowError("Connection Error","Server not connected","Failed to connect.. Error: " + e.getMessage());
             }
-            //updates label
-            //AnyText.setText("Welcome Toooooo Achordion!");
         }
         else{
             AlertClass.ShowError("Invalid IP","Error","Going back to start page, retry IP address");
