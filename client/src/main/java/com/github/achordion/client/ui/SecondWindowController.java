@@ -19,7 +19,8 @@ import java.nio.file.Paths;
 public class SecondWindowController implements AchordListener<ChordEvent> {
 
     private MainController mainController;
-
+    @FXML
+    private Label chords;
     @FXML
     private ToggleButton recordButton;
     @FXML
@@ -57,6 +58,7 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
 
     @Override
     public void handleEvent(ChordEvent event) {
+        this.chords = new Label(event.getNotes().toString());
         System.out.println(event.getNotes());
     }
 }
