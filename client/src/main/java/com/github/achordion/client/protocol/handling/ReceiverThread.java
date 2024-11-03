@@ -28,6 +28,7 @@ public class ReceiverThread extends Thread{
         while(connection.isConnected() && this.isRunning.get()) {
             try {
                 Packet<MType> packet = connection.receive();
+                System.out.println("Calling handler here!");
                 this.handler.handle(packet);
             } catch (IOException e) {
                 System.out.println("ERROR while receiving packet: " + e.getMessage());

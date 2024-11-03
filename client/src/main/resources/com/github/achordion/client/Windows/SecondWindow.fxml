@@ -10,7 +10,7 @@
    <VBox layoutX="198.0" layoutY="90.0" prefHeight="200.0" prefWidth="183.0">
       <children>
          <ToggleButton fx:id="recordButton" mnemonicParsing="false" onAction="#onRecordingClicked" text="Send " />
-         <Button mnemonicParsing="false" text="Button" />
+         <Button fx:id="browseFileButton" mnemonicParsing="false" onAction="#onFileBrowse" text="Button" />
 
       </children>
    </VBox>

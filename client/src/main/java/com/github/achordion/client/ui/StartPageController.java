@@ -37,30 +37,30 @@ public class StartPageController {
     protected void onClickToConnectClicked() {
 
         String inputText = textField.getText();
-        if(isValidIPAddress(inputText)){
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
-                Parent root = loader.load();
-                //if successful, the ipaddress will be sent to second controller
-                SecondWindowController secondWController = loader.getController();
-                MainController maincontroller = MainController.getInstance();
-                MainHandler mainhandler = MainHandler.getInstance();
-                maincontroller.connect(inputText, 60000);
-                mainhandler.addChordListener(secondWController);
-                AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
-
-                Stage stage = (Stage) AnyText.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (UnknownHostException e) {
-                AlertClass.ShowError("Unknown host","Server Error","Could not connect to IP address.. " + e.getMessage());
-            }catch(IOException e){
-                AlertClass.ShowError("Connection Error","Server not connected","Failed to connect.. Error: " + e.getMessage());
-            }
-        }
-        else{
-            AlertClass.ShowError("Invalid IP","Error","Going back to start page, retry IP address");
+        if(!isValidIPAddress(inputText)) {
+            AlertClass.ShowError("Invalid IP", "Error", "Going back to start page, retry IP address");
             primaryStage.requestFocus();
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
+            Parent root = loader.load();
+            //if successful, the ipaddress will be sent to second controller
+            SecondWindowController secondWController = loader.getController();
+            MainController maincontroller = MainController.getInstance();
+            MainHandler mainhandler = MainHandler.getInstance();
+            maincontroller.connect(inputText, 60000);
+            mainhandler.addChordListener(secondWController);
+            AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
+
+            Stage stage = (Stage) AnyText.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (UnknownHostException e) {
+            AlertClass.ShowError("Unknown host","Server Error","Could not connect to IP address.. " + e.getMessage());
+        } catch(IOException e){
+            AlertClass.ShowError("Connection Error","Server not connected","Failed to connect.. Error: " + e.getMessage());
         }
         textField.clear();
     }
