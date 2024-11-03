@@ -6,7 +6,6 @@ import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
 import com.github.achordion.client.protocol.handling.AchordListener;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -57,10 +56,19 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
                 System.out.println("Recording is not selected");
     }
 
-    @FXML
     @Override
     public void handleEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getNotes().toString()) );
+        this.chords = new Label(event.getNotes().toString());
         System.out.println(event.getNotes());
     }
+
+
+    //   private File chooseFile(Stage stage) {
+    //        FileChooser fileChooser = new FileChooser();
+    //        fileChooser.setTitle("Select a File");
+    //        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+    //        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Audio Files (*.wav)", "*.wav");
+    //        fileChooser.getExtensionFilters().add(filter);
+    //        return fileChooser.showOpenDialog(stage);
+    //    }
 }
