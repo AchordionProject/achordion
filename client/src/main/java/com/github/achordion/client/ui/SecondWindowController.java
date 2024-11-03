@@ -5,7 +5,7 @@ import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
-import com.github.achordion.client.protocol.handling.listeners.AchordListener;
+import com.github.achordion.client.protocol.handling.AchordListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;

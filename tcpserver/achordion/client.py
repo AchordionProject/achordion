@@ -1,6 +1,5 @@
 import asyncio
 import io
-import socket
 import enum
 from typing import Callable, Mapping
 from achordion.detect import run
@@ -51,14 +50,11 @@ class ClientInterface:
 
     async def receive(self) -> Packet:
         mtype_bytes = await self.reader.readexactly(4)
-        print("Received mtype!")
         message_len_bytes = await self.reader.readexactly(4)
-        print("Received mlen!")
         mtype = int.from_bytes(mtype_bytes, byteorder="big")
         mlen = int.from_bytes(message_len_bytes, byteorder="big")
-        print(f"mtype is {mtype}")
-        print(f"mlen is {mlen}")
         body = await self.reader.readexactly(mlen)
-        print("Received body!")
-        return Packet(MessageType(mtype), body)
+        packet = Packet(MessageType(mtype), body)
+        print("Received packet:", packet)
+        return packet
 

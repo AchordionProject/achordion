@@ -1,6 +1,7 @@
 package com.github.achordion.client.ui;
 
 import com.github.achordion.client.protocol.MainController;
+import com.github.achordion.client.protocol.MainHandler;
 import com.github.achordion.client.protocol.core.Connection;
 import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
@@ -46,8 +47,9 @@ public class StartPageController {
                 //if successful, the ipaddress will be sent to second controller
                 SecondWindowController secondWController = loader.getController();
                 MainController maincontroller = MainController.getInstance();
+                MainHandler mainhandler = MainHandler.getInstance();
                 maincontroller.connect(inputText, 60000);
-                maincontroller.addChordListener(secondWController);
+                mainhandler.addChordListener(secondWController);
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Connected!");
                 alert.setHeaderText("ipAddress");

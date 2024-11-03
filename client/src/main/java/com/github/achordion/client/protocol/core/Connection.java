@@ -41,4 +41,9 @@ public class Connection {
         return this.socket.isConnected();
     }
 
+    public void close() throws IOException {
+        this.socket.close();
+    }
+
+
 }
