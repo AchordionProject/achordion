@@ -10,20 +10,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class SecondWindowController implements AchordListener<ChordEvent> {
-    @FXML
-    private Label ipAddressLabel;
 
     private MainController mainController;
 
     @FXML
     private ToggleButton recordButton;
     @FXML
-    public void initialize(){
+    public void initialize() {
         String css = getClass().getResource("/com/github/achordion/client/CssStyles/toggleButton.css").toExternalForm();
         recordButton.getStylesheets().add(css);
         recordButton.getStyleClass().add("toggle-button");
@@ -38,8 +38,11 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
             byte[] fileData = Files.readAllBytes(Paths.get(filePath));
             Packet<MType> packet = new Packet<>(MType.CHORD, fileData);
             connection.send(packet);
-        }catch(IOException e){
-            System.out.println("Error reading file");
+        }catch(FileNotFoundException e){
+           AlertClass.ShowError("Error","File not Found error","The file '"+filePath+"' could  not be found");
+        }
+        catch(IOException e){
+            AlertClass.ShowError("Error","Error",( "File found but not reading " + e.getMessage()));
         }
     }
     @FXML

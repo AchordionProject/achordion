@@ -2,8 +2,7 @@ package com.github.achordion.client.ui;
 
 import com.github.achordion.client.protocol.MainController;
 import com.github.achordion.client.protocol.MainHandler;
-import com.github.achordion.client.protocol.core.Connection;
-import com.sun.tools.javac.Main;
+import com.github.achordion.client.protocol.AlertClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,11 +12,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
-import java.net.InetAddress;
-import java.net.Socket;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
 
@@ -50,29 +47,20 @@ public class StartPageController {
                 MainHandler mainhandler = MainHandler.getInstance();
                 maincontroller.connect(inputText, 60000);
                 mainhandler.addChordListener(secondWController);
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Connected!");
-                alert.setHeaderText("ipAddress");
-                alert.setContentText(("Connected to server"));
-                alert.showAndWait();
+                AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
 
                 Stage stage = (Stage) AnyText.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("error");
-                alert.setHeaderText("Error");
-                alert.setContentText(("Second Window did not open"));
-                alert.showAndWait();
-
+            } catch (UnknownHostException e) {
+                AlertClass.ShowError("Unknown host","Server Error","Could not connect to IP address.. " + e.getMessage());
+            }catch(IOException e){
+                AlertClass.ShowError("Connection Error","Server not connected","Failed to connect.. Error: " + e.getMessage());
             }
-            //updates label
-            AnyText.setText("Welcome Toooooo Achordion!");
         }
         else{
-            invalidIPWarning();
+            AlertClass.ShowError("Invalid IP","Error","Going back to start page, retry IP address");
+            primaryStage.requestFocus();
         }
         textField.clear();
     }
@@ -88,20 +76,6 @@ public class StartPageController {
     public boolean isValidIPAddress(String ipAddress) {
         String regex = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
         return Pattern.compile(regex).matcher(ipAddress).matches();
-    }
-
-    @FXML
-    public void invalidIPWarning(){
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("INVALID IP");
-        alert.setHeaderText("ERRRROR");
-        alert.setContentText("Wrong IP, try again!");
-
-
-        //set the alert now display it
-        alert.showAndWait();
-        //when the alert is closed the start window will re-appear
-        primaryStage.requestFocus();
     }
 
 }
