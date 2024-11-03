@@ -6,6 +6,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,8 +41,10 @@ public class SecondWindowController {
                     Packet<Mtype> packet = this.connection.receive();
                     List<Note> notes = this.requestHandler.handle(packet);
                     System.out.println(notes);
-                } catch (Exception e) {
-                    System.out.println("Something went wrong: " + e.getMessage());
+                } catch (IOException e) {
+                    AlertClass.ShowError("ERROR","Connection Error", "Failed to recieve data " +e.getMessage());
+                }catch (Exception e) {
+                    AlertClass.ShowError("ERROR", "Data was received","Unexpected error: " +e.getMessage());
                 }
             }
         });
@@ -54,8 +59,11 @@ public class SecondWindowController {
             Packet<Mtype> packet = new Packet<>(Mtype.CHORD, fileData);
             this.connection.send(packet);
             System.out.println("FILE SENT!!!!");
-        }catch(IOException e){
-            System.out.println("Error reading file");
+        }catch(FileNotFoundException e){
+           AlertClass.ShowError("Error","File not Found error","The file '"+filePath+"' could  not be found");
+        }
+        catch(IOException e){
+            AlertClass.ShowError("Error","Error",( "File found but not reading " + e.getMessage()));
         }
     }
     @FXML
