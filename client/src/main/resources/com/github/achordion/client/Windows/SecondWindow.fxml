@@ -13,5 +13,5 @@
 
       </children>
    </VBox>
-   <Label fx:id="chords" layoutX="14.0" layoutY="6.0" text="" />
+   <Label fx:id="chords" layoutX="14.0" layoutY="6.0" text="No notes yet" />
 </AnchorPane>
