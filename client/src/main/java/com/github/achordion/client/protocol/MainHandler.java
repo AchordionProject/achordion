@@ -31,9 +31,7 @@ public class MainHandler {
                 ChordEvent event = new ChordEvent(this, handleChordRequest(packet.getBody()));
                 sendToAll(chordListeners, event);
             }
-            default -> {
-                System.out.println("No handler for message type: " + packet.getType());
-            }
+            default -> System.out.println("No handler for message type: " + packet.getType());
         }
     }
 

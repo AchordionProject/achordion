@@ -4,7 +4,7 @@ import asyncio
 
 from achordion.client import ClientInterface, MESSAGE_ACTIONS
 
-HOST = "127.0.0.1"
+HOST = "0.0.0.0"
 PORT = 60000
 
 async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
