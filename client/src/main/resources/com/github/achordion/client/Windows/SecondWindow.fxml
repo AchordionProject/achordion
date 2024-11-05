@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.SecondWindowController">
+
+    <Label fx:id="ipAddressLabel" layoutX="20" layoutY="20" />
+   <VBox layoutX="198.0" layoutY="90.0" prefHeight="200.0" prefWidth="183.0">
+      <children>
+         <ToggleButton fx:id="recordButton" mnemonicParsing="false" onAction="#onRecordingClicked" text="Send " />
+         <Button fx:id="browseFileButton" mnemonicParsing="false" onAction="#onFileBrowse" text="Button" />
+
+      </children>
+   </VBox>
+   <Label fx:id="chords" layoutX="162.0" layoutY="282.0" prefHeight="35.0" prefWidth="230.0" text="No notes yet" textFill="#141414">
+      <font>
+         <Font size="24.0" />
+      </font></Label>
+</AnchorPane>

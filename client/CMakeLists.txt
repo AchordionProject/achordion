@@ -52,8 +52,13 @@ FetchContent_MakeAvailable(asio)
 
 
 set(SRCS src/main.cpp)
+if(WIN32)
+    add_executable(achordion_client WIN32 ${SRCS})
+    # Add Windows-specific settings or code
+else()
+    add_executable(achordion_client ${SRCS})
+endif()
 
-add_executable(achordion_client ${SRCS})
 
 target_include_directories(achordion_client PRIVATE ${asio_SOURCE_DIR}/asio/include)
 target_include_directories(achordion_client PRIVATE ${portaudio_SOURCE_DIR}/include)
