@@ -12,7 +12,8 @@
    <children>
       <ImageView fitHeight="330.0" fitWidth="408.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../../../Downloads/WelcomePageEdited.jpg" />
+            <!-- this is the path for all images... just change the .jpg portion-->
+            <Image url="../Images/image4.png" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="597.0" prefWidth="639.0">
