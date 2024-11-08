@@ -38,13 +38,14 @@ public class StartPageController {
         System.out.println("The button was clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/ThirdWindow.fxml"));
         Parent root = loader.load();
+        OfflineWindowController offlineWindowController = loader.getController();
         Stage stage = (Stage) AnyText.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
-    protected void onClickToConnectClicked() {
+    protected void onClickToConnectClicked() throws IOException {
 
         String inputText = textField.getText();
         if(!isValidIPAddress(inputText)) {
@@ -52,7 +53,6 @@ public class StartPageController {
             primaryStage.requestFocus();
             return;
         }
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
             Parent root = loader.load();
