@@ -13,7 +13,7 @@
       <ImageView fitHeight="330.0" fitWidth="408.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <!-- this is the path for all images... just change the .jpg portion-->
-            <Image url="@../Images/image.png" />
+            <Image url="@../Images/WelcomePageEdited.jpg" />
          </image>
       </ImageView>
       <AnchorPane prefHeight="597.0" prefWidth="639.0">
