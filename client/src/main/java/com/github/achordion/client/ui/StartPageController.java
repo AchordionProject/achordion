@@ -34,6 +34,16 @@ public class StartPageController {
     }
 
     @FXML
+    protected void onOfflineClicked() throws IOException {
+        System.out.println("The button was clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/ThirdWindow.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) AnyText.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
     protected void onClickToConnectClicked() {
 
         String inputText = textField.getText();
