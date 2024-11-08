@@ -20,10 +20,6 @@ import java.util.regex.Pattern;
 
 public class StartPageController {
     @FXML
-    //this "AnyText" can be used over and over again with different text inside
-    //it has Welcome to Achordion.... then helps display the user input to the screen
-    private Label AnyText;
-    @FXML
     private TextField textField;
     //SET TO FALSE WHEN RUNNING SERVER + GUI
     //SET TO TRUE WHEN DEBUGGING GUI WINDOWS
@@ -41,7 +37,7 @@ public class StartPageController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/ThirdWindow.fxml"));
         Parent root = loader.load();
         OfflineWindowController offlineWindowController = loader.getController();
-        Stage stage = (Stage) AnyText.getScene().getWindow();
+        Stage stage = (Stage) textField.getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -63,7 +59,7 @@ public class StartPageController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
                 Parent root = loader.load();
                 SecondWindowController secondWindowController = loader.getController();
-                Stage stage = (Stage) AnyText.getScene().getWindow();
+                Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
             }else {
@@ -77,7 +73,7 @@ public class StartPageController {
                 mainhandler.addChordListener(secondWController);
                 AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
 
-                Stage stage = (Stage) AnyText.getScene().getWindow();
+                Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
             }
