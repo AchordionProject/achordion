@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.OfflineWindowController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.OfflineWindowController">
    <children>
       <ImageView fitHeight="603.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="Abox" layoutX="109.0" layoutY="165.0"  prefWidth="150.0" onMouseClicked="#AchordClicked"/>
+            <ChoiceBox fx:id="Abox" layoutX="25.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Bbox" layoutX="105.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Cbox" layoutX="187.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Dbox" layoutX="268.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Ebox" layoutX="348.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Fbox" layoutX="426.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Gbox" layoutX="505.0" layoutY="33.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
          </children>
       </AnchorPane>
    </children>
