@@ -66,6 +66,7 @@ public class OfflineWindowController {
             File audioFile = new File(audioURL.getPath());
             audioRecorder.playAudio(audioFile);
         }
+
     }
 
     public void BchordClicked(MouseEvent event) {
