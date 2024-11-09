@@ -7,20 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-
 <StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.StartPageController">
    <children>
-      <ImageView fitHeight="330.0" fitWidth="408.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="603.0" fitWidth="718.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <!-- this is the path for all images... just change the .jpg portion-->
             <Image url="@../Images/WelcomePageEdited.jpg" />
          </image>
       </ImageView>
-      <AnchorPane prefHeight="597.0" prefWidth="639.0">
+      <AnchorPane prefHeight="586.0" prefWidth="693.0">
          <children>
-            <TextField fx:id="textField" layoutX="226.0" layoutY="412.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
-            <Button layoutX="161.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#onOfflineClicked" text="Offline" />
-            <Button layoutX="386.0" layoutY="412.0" mnemonicParsing="false" onAction="#onClickToConnectClicked" onMouseClicked="#onClickToConnectClicked" text="Click To Connect" />
+            <TextField fx:id="textField" layoutX="241.0" layoutY="489.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
+            <Button layoutX="150.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#onOfflineClicked" text="Offline" />
+            <Button layoutX="423.0" layoutY="489.0" mnemonicParsing="false" onAction="#onClickToConnectClicked" onMouseClicked="#onClickToConnectClicked" text="Click To Connect" />
             <AnchorPane layoutX="-62.0" layoutY="117.0" />
          </children>
       </AnchorPane>

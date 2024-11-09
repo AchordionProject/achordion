@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,7 +33,7 @@ public class StartPageController {
     @FXML
     protected void onOfflineClicked() throws IOException {
         System.out.println("The button was clicked");
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/ThirdWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
         Parent root = loader.load();
         OfflineWindowController offlineWindowController = loader.getController();
         Stage stage = (Stage) textField.getScene().getWindow();
