@@ -27,6 +27,9 @@ public class OfflineWindowController {
             System.out.println("A sharp was clicked");
 
            //This is the relative path to the file inside the project
+
+            //DEBUG ISSUES ---> DROP DOWN MENU IS FOR A CHORD---FILE IS C-MAJOR
+            //THE FILE DOES NOT PLAY ON THE FIRST MOUSECLICK.. WHY?
             String audioFilePath = "/com/github/achordion/client/Chords/c-major.wav";
 
             //a URL object can be converted to a file
@@ -36,6 +39,13 @@ public class OfflineWindowController {
             //the URL object path is read
             File audioFile = new File(audioURL.getPath());
 
+            audioRecorder.playAudio(audioFile);
+        }
+        if(pitchSelected != null && pitchSelected.equals("A minor")) {
+            System.out.println("A minor was clicked");
+            String audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+            URL audioURL = getClass().getResource(audioFilePath);
+            File audioFile = new File(audioURL.getPath());
             audioRecorder.playAudio(audioFile);
         }
     }
