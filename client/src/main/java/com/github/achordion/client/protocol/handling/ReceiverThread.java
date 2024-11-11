@@ -5,6 +5,8 @@ import com.github.achordion.client.protocol.MainHandler;
 import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.core.Packet;
+import com.github.achordion.client.protocol.core.SocketClosedException;
+import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -28,8 +30,13 @@ public class ReceiverThread extends Thread{
         while(connection.isConnected() && this.isRunning.get()) {
             try {
                 Packet<MType> packet = connection.receive();
-                System.out.println("Calling handler here!");
+                System.out.println(packet.toString());
                 this.handler.handle(packet);
+            } catch(SocketClosedException e) {
+                System.out.println(e.getMessage());
+                DisconnectEvent event = new DisconnectEvent(connection);
+                this.handler.sendDisconnectEvent(event);
+                this.stopReceiverThread();
             } catch (IOException e) {
                 System.out.println("ERROR while receiving packet: " + e.getMessage());
             }

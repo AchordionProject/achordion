@@ -8,12 +8,12 @@ import java.net.Socket;
 public class Connection {
     private Socket socket;
     private OutputStream out;
-    private InputStream in;
+    private CheckedInputStream in;
 
     public Connection(Socket socket) throws IOException {
         this.socket = socket;
         this.out = socket.getOutputStream();
-        this.in = socket.getInputStream();
+        this.in = new CheckedInputStream(socket.getInputStream());
     }
 
     public void send(Packet<MType> packet) throws IOException {
@@ -36,6 +36,7 @@ public class Connection {
         this.in.read(buf, 0, bodySize);
         return new Packet<>(mtype, buf);
     }
+
 
     public boolean isConnected() {
         return this.socket.isConnected();
