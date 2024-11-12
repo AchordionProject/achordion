@@ -52,6 +52,7 @@ public class StartPageController {
             MainHandler mainhandler = MainHandler.getInstance();
             maincontroller.connect(inputText, 60000);
             mainhandler.addChordListener(secondWController);
+            mainhandler.addDisconnectListener(secondWController);
             AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
 
             Stage stage = (Stage) AnyText.getScene().getWindow();

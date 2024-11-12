@@ -5,7 +5,9 @@ import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
-import com.github.achordion.client.protocol.handling.AchordListener;
+import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
+import com.github.achordion.client.protocol.handling.listeners.ChordListener;
+import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,9 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
-public class SecondWindowController implements AchordListener<ChordEvent> {
+public class SecondWindowController implements ChordListener, DisconnectListener {
 
     private MainController mainController;
     @FXML
@@ -76,13 +77,6 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
         }
     }
 
-    @Override
-    public void handleEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getNotes().toString()) );
-        System.out.println(event.getNotes());
-    }
-
-
     private File chooseFile(Stage stage) {
          FileChooser fileChooser = new FileChooser();
          fileChooser.setTitle("Select a File");
@@ -91,4 +85,15 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
          fileChooser.getExtensionFilters().add(filter);
          return fileChooser.showOpenDialog(stage);
      }
+
+    @Override
+    public void onChordEvent(ChordEvent event) {
+        Platform.runLater(() -> this.chords.setText(event.getNotes().toString()) );
+        System.out.println(event.getNotes());
+    }
+
+    @Override
+    public void onDisconnect(DisconnectEvent event) {
+        System.out.println("Connection was closed by server please transfer to the main page!");
+    }
 }
