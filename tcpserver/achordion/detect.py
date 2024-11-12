@@ -20,8 +20,7 @@ def recognize_notes(samples: np.ndarray, sr: int | float) -> List[Tuple[float, N
         halfsteps = Note.freq_to_halfsteps(freq)
         rnote = Note.halfsteps_to_note(halfsteps)
         notes.append((freq, rnote))
-
-    return notes
+    return sorted(notes, key=lambda x: x[0])
 
 def filter_notes(notes: List[Note]) -> Set[Note]:
     counter = Counter(notes)
