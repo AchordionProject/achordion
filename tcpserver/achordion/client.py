@@ -1,8 +1,11 @@
 import asyncio
 import io
 import enum
-from typing import Callable, Mapping
+from typing import Callable, Mapping, Union
 from achordion.detect import run
+from achordion.logger import achord_logger
+
+PacketBytes = Union[bytes, bytearray]
 
 class MessageType(enum.Enum):
     SERVERPING = 0
@@ -10,7 +13,7 @@ class MessageType(enum.Enum):
     CHORD = 2
 
     @staticmethod
-    def chord_recognition(body: bytes) -> "Packet":
+    def chord_recognition(body: PacketBytes) -> "Packet":
         file = io.BytesIO(body)
         notes = run(file)
         body_to_send = bytearray()
@@ -28,7 +31,7 @@ MESSAGE_ACTIONS: Mapping[MessageType, Callable] = {
 
 
 class Packet:
-    def __init__(self, mtype: MessageType, body: bytes) -> None:
+    def __init__(self, mtype: MessageType, body: PacketBytes) -> None:
         self.mtype = mtype
         self.body = body
 
@@ -55,6 +58,5 @@ class ClientInterface:
         mlen = int.from_bytes(message_len_bytes, byteorder="big")
         body = await self.reader.readexactly(mlen)
         packet = Packet(MessageType(mtype), body)
-        print("Received packet:", packet)
         return packet
 
