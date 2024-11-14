@@ -3,6 +3,7 @@ from collections import Counter
 import io
 import numpy as np
 import librosa
+from achordion.logger import achord_logger
 
 from achordion.note import Note
 
@@ -20,11 +21,15 @@ def recognize_notes(samples: np.ndarray, sr: int | float) -> List[Tuple[float, N
         halfsteps = Note.freq_to_halfsteps(freq)
         rnote = Note.halfsteps_to_note(halfsteps)
         notes.append((freq, rnote))
-    return sorted(notes, key=lambda x: x[0])
+    notes = sorted(notes, key=lambda x: x[0])
+    achord_logger.info(f"Recognized notes: {notes}")
+    return notes
 
 def filter_notes(notes: List[Note]) -> Set[Note]:
     counter = Counter(notes)
-    return { note for note, count in counter.items() if count >= 2 }
+    filtered_notes = { note for note, count in counter.items() if count >= 2 }
+    achord_logger.info(f"Filtered notes: {filtered_notes}")
+    return filtered_notes
 
 def run(file_obj: io.BytesIO) -> Set[Note]:
     samples, sr = librosa.load(file_obj)
