@@ -24,7 +24,7 @@ class MessageType(enum.Enum):
         body_to_send = bytearray()
         # Retrieve recognized chord
         body_to_send += Chord(Note.C, ChordType.MINOR).to_byte()
-        body_to_send += len(notes).to_bytes(4, "big")
+        body_to_send += len(notes).to_bytes(1, "big")
         notes_as_bytes = pack_notes_into_bytes(notes)
         body_to_send += notes_as_bytes
         return Packet(MessageType.CHORD, body_to_send)

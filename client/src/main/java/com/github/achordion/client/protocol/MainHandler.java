@@ -44,12 +44,12 @@ public class MainHandler {
 
     private Tuple<Chord, List<Note>> handleChordRequest(byte[] body) {
         Chord chord = Chord.fromBytes(body[0]);
-        int nChords = Utilities.byteArrayToInt(body, 1, 4);
+        int nChords = Utilities.byteArrayToInt(body, 1, 1);
         List<Note> list = new ArrayList<Note>(nChords);
         Note[] values = Note.values();
         int numLoops = nChords % 2 == 0 ? nChords / 2 : nChords / 2 + 1;
         for(int i = 0; i < numLoops; i++) {
-            byte twoNotes = body[i + 5];
+            byte twoNotes = body[i + 2];
             for(int j = 1; j >= 0; j--) {
                 int noteInd = (twoNotes >> (j * 4)) & 0xF;
                 Note note = values[noteInd];
