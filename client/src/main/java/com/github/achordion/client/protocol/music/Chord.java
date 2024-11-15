@@ -7,4 +7,9 @@ public record Chord(Note bnote, ChordType ctype) {
 
         return new Chord(Note.getNoteFromInt(bnote), ChordType.getChordTypeFromInt(ctype));
     }
+
+    @Override
+    public String toString() {
+        return bnote + " " + ctype;
+    }
 }
