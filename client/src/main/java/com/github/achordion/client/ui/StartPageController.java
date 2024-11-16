@@ -25,7 +25,7 @@ public class StartPageController {
     private Label AnyText;
     @FXML
     private TextField textField;
-
+    private boolean bypassconnection = true;
     @FXML
     private Stage primaryStage;
 
@@ -44,20 +44,34 @@ public class StartPageController {
         }
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
-            Parent root = loader.load();
-            //if successful, the ipaddress will be sent to second controller
-            SecondWindowController secondWController = loader.getController();
-            MainController maincontroller = MainController.getInstance();
-            MainHandler mainhandler = MainHandler.getInstance();
-            maincontroller.connect(inputText, 60000);
-            mainhandler.addChordListener(secondWController);
-            mainhandler.addDisconnectListener(secondWController);
-            AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
+            if(bypassconnection){
+                System.out.println("bypassconnection");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
+                Parent root = loader.load();
+                //if successful, the ipaddress will be sent to second controller
+                SecondWindowController secondWController = loader.getController();
+                Stage stage = (Stage) AnyText.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+                MainHandler mainhandler = MainHandler.getInstance();
+                mainhandler.addAudioListener(secondWController);
+            }else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
+                Parent root = loader.load();
+                //if successful, the ipaddress will be sent to second controller
+                SecondWindowController secondWController = loader.getController();
+                MainController maincontroller = MainController.getInstance();
+                MainHandler mainhandler = MainHandler.getInstance();
+                maincontroller.connect(inputText, 60000);
+                mainhandler.addChordListener(secondWController);
+                mainhandler.addDisconnectListener(secondWController);
+                mainhandler.addAudioListener(secondWController);
+                AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
 
-            Stage stage = (Stage) AnyText.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+                Stage stage = (Stage) AnyText.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }
         } catch (UnknownHostException e) {
             AlertClass.ShowError("Unknown host","Server Error","Could not connect to IP address.. " + e.getMessage());
         } catch(IOException e){
