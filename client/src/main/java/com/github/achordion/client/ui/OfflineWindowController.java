@@ -28,8 +28,14 @@ public class OfflineWindowController {
 
     private AudioRecorder audioRecorder = new AudioRecorder();
     public void initialize() {
-        Abox.getItems().addAll("A sharp","B sharp", "C sharp", "D sharp", "E sharp", "F sharp", "G sharp");
-        Bbox.getItems().addAll("A minor","B minor", "C minor", "D minor", "E minor", "F minor", "G minor");
+        Abox.getItems().addAll("A sharp","A minor");
+        Bbox.getItems().addAll("B sharp","B minor");
+        Cbox.getItems().addAll("C sharp","C minor");
+        Dbox.getItems().addAll("D sharp","D minor");
+        Ebox.getItems().addAll("E sharp","E minor");
+        Fbox.getItems().addAll("F sharp","F minor");
+        Gbox.getItems().addAll("G sharp","G minor");
+
     }
 
     public void AchordClicked(MouseEvent event) {
