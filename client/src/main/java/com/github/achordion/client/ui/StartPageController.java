@@ -25,9 +25,10 @@ public class StartPageController {
     private boolean bypassConnection = true;
     @FXML
     private Stage primaryStage;
-
     public void setPrimaryStage(Stage stage){
         this.primaryStage = stage;
+        stage.setMaxHeight(568);
+        stage.setMaxWidth(693);
     }
 
     @FXML
@@ -38,6 +39,8 @@ public class StartPageController {
         OfflineWindowController offlineWindowController = loader.getController();
         Stage stage = (Stage) textField.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setMaxHeight(568);
+        stage.setMaxWidth(693);
         stage.show();
     }
 
@@ -60,6 +63,8 @@ public class StartPageController {
                 SecondWindowController secondWindowController = loader.getController();
                 Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));
+                stage.setMaxHeight(568);
+                stage.setMaxWidth(693);
                 stage.show();
             }else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
@@ -70,10 +75,12 @@ public class StartPageController {
                 MainHandler mainhandler = MainHandler.getInstance();
                 maincontroller.connect(inputText, 60000);
                 mainhandler.addChordListener(secondWController);
-                AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
+                AlertClass.ShowError("Success!!", "ipAddress", "Connected to Server");
 
                 Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));
+                stage.setMaxHeight(568);
+                stage.setMaxWidth(693);
                 stage.show();
             }
         } catch (UnknownHostException e) {
