@@ -103,8 +103,8 @@ public class SecondWindowController implements ChordListener, DisconnectListener
 
     @Override
     public void onChordEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getNotes().toString()) );
-        System.out.println(event.getNotes());
+        Platform.runLater(() -> this.chords.setText(event.getData().toString()) );
+        System.out.println(event.getData());
     }
 
     @Override

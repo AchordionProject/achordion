@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.regex.Pattern;
 
 
 public class StartPageController {
@@ -35,11 +34,6 @@ public class StartPageController {
     protected void onClickToConnectClicked() {
 
         String inputText = textField.getText();
-        if(!isValidIPAddress(inputText)) {
-            AlertClass.ShowError("Invalid IP", "Error", "Going back to start page, retry IP address");
-            primaryStage.requestFocus();
-            return;
-        }
 
         try {
             if(bypassconnection){
@@ -89,11 +83,4 @@ public class StartPageController {
         }
         textField.clear();
     }
-// this boolean checks if the ip address is ip4 address
-    @FXML
-    public boolean isValidIPAddress(String ipAddress) {
-        String regex = "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
-        return Pattern.compile(regex).matcher(ipAddress).matches();
-    }
-
 }
