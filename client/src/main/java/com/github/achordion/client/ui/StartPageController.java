@@ -23,9 +23,10 @@ public class StartPageController {
 
     @FXML
     private Stage primaryStage;
-
     public void setPrimaryStage(Stage stage){
         this.primaryStage = stage;
+        stage.setMaxHeight(568);
+        stage.setMaxWidth(693);
     }
 
     @FXML
@@ -36,6 +37,8 @@ public class StartPageController {
         OfflineWindowController offlineWindowController = loader.getController();
         Stage stage = (Stage) textField.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setMaxHeight(568);
+        stage.setMaxWidth(693);
         stage.show();
     }
 
@@ -56,6 +59,8 @@ public class StartPageController {
                        SecondWindowController secondWController = loader.getController();
                        Stage stage = (Stage) AnyText.getScene().getWindow();
                        stage.setScene(new Scene(root));
+                       stage.setMaxHeight(568);
+                       stage.setMaxWidth(693);
                        stage.show();
                        MainHandler mainhandler = MainHandler.getInstance();
                        mainhandler.addAudioListener(secondWController);
@@ -83,6 +88,8 @@ public class StartPageController {
 
                 Stage stage = (Stage) AnyText.getScene().getWindow();
                 stage.setScene(new Scene(root));
+                stage.setMaxHeight(568);
+                stage.setMaxWidth(693);
                 stage.show();
             }
         } catch (UnknownHostException e) {
