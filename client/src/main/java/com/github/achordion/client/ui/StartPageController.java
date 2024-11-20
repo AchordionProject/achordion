@@ -48,7 +48,7 @@ public class StartPageController {
         String inputText = textField.getText();
 
         try {
-            if(bypassconnection){
+            if(bypassConnection){
                 if(AlertClass.ShowConfirmation("Connection Status", "Welcome to Achordion!", "Click OK to continue")) {
                    try {
                        System.out.println("Connected to Server");
@@ -57,7 +57,7 @@ public class StartPageController {
                        Parent root = loader.load();
                        //if successful, the ipaddress will be sent to second controller
                        SecondWindowController secondWController = loader.getController();
-                       Stage stage = (Stage) AnyText.getScene().getWindow();
+                       Stage stage = (Stage) textField.getScene().getWindow();
                        stage.setScene(new Scene(root));
                        stage.setMaxHeight(568);
                        stage.setMaxWidth(693);
@@ -86,7 +86,7 @@ public class StartPageController {
                 mainhandler.addAudioListener(secondWController);
                 AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
 
-                Stage stage = (Stage) AnyText.getScene().getWindow();
+                Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.setMaxHeight(568);
                 stage.setMaxWidth(693);
