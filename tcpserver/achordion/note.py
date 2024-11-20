@@ -4,23 +4,39 @@ import numpy as np
 A4_FREQ = 440.0
 
 class Note(enum.Enum):
-    C = 0
-    C_SHARP = 1
-    D = 2
-    D_SHARP = 3
-    E = 4
-    F = 5
-    F_SHARP = 6
-    G = 7
-    G_SHARP = 8
-    A = 9
-    A_SHARP = 10
-    B = 11
+    NO_CHORD = 0
+    C = 1
+    C_SHARP = 2
+    D = 3
+    D_SHARP = 4
+    E = 5
+    F = 6
+    F_SHARP = 7
+    G = 8
+    G_SHARP = 9
+    A = 10
+    A_SHARP = 11
+    B = 12
 
     @staticmethod
     def freq_to_halfsteps(freq: float) -> int:
-        return int(round(69 + 12 * np.log2(freq / A4_FREQ)))
+        return int(round(69 + 12 * np.log2(freq / A4_FREQ))) + 1
 
     @staticmethod
     def halfsteps_to_note(halfsteps: int) -> "Note":
         return Note(halfsteps % 12)
+    
+class Interval(enum.Enum):
+    UNISON = 0
+    MIN2 = 1
+    MAJ2 = 2
+    MIN3 = 3
+    MAJ3 = 4
+    PERF4 = 5
+    TRITONE = 6
+    PERF5 = 7
+    MIN6 = 8
+    MAJ6 = 9
+    MIN7 = 10
+    MAJ7 = 11
+
