@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+
+import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.io.IOException;
 
 public class AchordionApp extends Application {
@@ -14,7 +17,6 @@ public class AchordionApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(AchordionApp.class.getResource("/com/github/achordion/client/Windows/Start-View.fxml"));
        //  root is put into the scene below
         Parent root = fxmlLoader.load();
-
         //setting reference to start screen
         StartPageController startController = fxmlLoader.getController();
         startController.setPrimaryStage(stage);

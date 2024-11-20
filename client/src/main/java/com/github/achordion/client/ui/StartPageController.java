@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -17,12 +16,11 @@ import java.net.UnknownHostException;
 
 public class StartPageController {
     @FXML
-    //this "AnyText" can be used over and over again with different text inside
-    //it has Welcome to Achordion.... then helps display the user input to the screen
-    private Label AnyText;
-    @FXML
     private TextField textField;
-    private boolean bypassconnection = true;
+    //SET TO FALSE WHEN RUNNING SERVER + GUI
+    //SET TO TRUE WHEN DEBUGGING GUI WINDOWS
+    private boolean bypassConnection = true;
+
     @FXML
     private Stage primaryStage;
 
@@ -31,7 +29,18 @@ public class StartPageController {
     }
 
     @FXML
-    protected void onClickToConnectClicked() {
+    protected void onOfflineClicked() throws IOException {
+        System.out.println("The button was clicked");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
+        Parent root = loader.load();
+        OfflineWindowController offlineWindowController = loader.getController();
+        Stage stage = (Stage) textField.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    protected void onClickToConnectClicked() throws IOException {
 
         String inputText = textField.getText();
 
