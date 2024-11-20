@@ -4,8 +4,10 @@ import com.github.achordion.client.protocol.*;
 import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
+import com.github.achordion.client.protocol.handling.events.AudioEvent;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
 import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
+import com.github.achordion.client.protocol.handling.listeners.AudioListener;
 import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import javafx.application.Platform;
@@ -22,20 +24,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 
-public class SecondWindowController implements ChordListener, DisconnectListener {
+public class SecondWindowController implements ChordListener, DisconnectListener, AudioListener {
 
     private MainController mainController;
     @FXML
     private Label chords;
     @FXML
     private ToggleButton recordButton;
-
+    @FXML
+    private Button BackButton;
     @FXML
     private Button browseFileButton;
-
+    private AudioRecorder audioRecorder;
     @FXML
     public void initialize() {
+        this.audioRecorder= new AudioRecorder();
         String css = getClass().getResource("/com/github/achordion/client/CssStyles/toggleButton.css").toExternalForm();
         recordButton.getStylesheets().add(css);
         recordButton.getStyleClass().add("toggle-button");
@@ -60,12 +65,22 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     }
     @FXML
     public void onRecordingClicked(ActionEvent event){
-            if(recordButton.isSelected()) {
-                sendFile(new File("c-major.wav"));
-                recordButton.setText("Stop Recording");
-                System.out.println("Recording is selected");
-            }else
-                System.out.println("Recording is not selected");
+//            if(recordButton.isSelected()) {
+//                sendFile(new File("c-major.wav"));
+//                recordButton.setText("Stop Recording");
+//                System.out.println("Recording is selected");
+//            }else
+//                System.out.println("Recording is not selected")
+        if(recordButton.isSelected()) {
+            audioRecorder.startRecording();
+            recordButton.setText("Stop Recording");
+            System.out.println("Recording started");
+
+        }else{
+            audioRecorder.stopRecording();
+            recordButton.setText("Recording stopped");
+            System.out.println("Recording stopped");
+        }
     }
 
     @FXML
@@ -96,4 +111,15 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     public void onDisconnect(DisconnectEvent event) {
         System.out.println("Connection was closed by server please transfer to the main page!");
     }
+
+    @Override
+    public void onAudioEvent(AudioEvent event){
+        byte[] audioData = event.getAudioData();
+        System.out.println("Here it is as a string"+ Arrays.toString(audioData) + "with length"+ audioData.length + "bytes of data");
+    }
+    @FXML
+    public void onBackButtonClicked(ActionEvent event) {
+        BackToHome.ExitConnectionToHome(BackButton, mainController);
+    }
+
 }

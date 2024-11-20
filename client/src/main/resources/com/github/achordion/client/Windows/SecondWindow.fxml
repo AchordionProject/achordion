@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.SecondWindowController">
+<AnchorPane  prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.SecondWindowController">
+   <Button fx:id="BackButton" layoutX="20.0" layoutY="16.0" mnemonicParsing="false" onAction="#onBackButtonClicked" text="Back" />
 
     <Label fx:id="ipAddressLabel" layoutX="20" layoutY="20" />
    <VBox layoutX="198.0" layoutY="90.0" prefHeight="200.0" prefWidth="183.0">

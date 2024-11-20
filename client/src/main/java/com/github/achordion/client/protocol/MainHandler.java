@@ -2,10 +2,12 @@ package com.github.achordion.client.protocol;
 
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.core.Packet;
+import com.github.achordion.client.protocol.handling.events.AudioEvent;
 import com.github.achordion.client.protocol.music.Chord;
 import com.github.achordion.client.protocol.music.Note;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
 import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
+import com.github.achordion.client.protocol.handling.listeners.AudioListener;
 import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import com.github.achordion.client.util.Tuple;
@@ -19,10 +21,11 @@ public class MainHandler {
 
     List<ChordListener> chordListeners;
     List<DisconnectListener> disconnectListeners;
-
+    List<AudioListener> audioListeners;
     private MainHandler() {
         this.chordListeners = new ArrayList<>();
         this.disconnectListeners = new ArrayList<>();
+        this.audioListeners = new ArrayList<>();
     }
 
     public static MainHandler getInstance() {
@@ -72,6 +75,11 @@ public class MainHandler {
             listener.onChordEvent(event);
         }
     }
+    public void sendAudioEvent(AudioEvent event) {
+        for(AudioListener listener : audioListeners) {
+            listener.onAudioEvent(event);
+        }
+    }
 
 
     public void addChordListener(ChordListener listener) {
@@ -81,4 +89,6 @@ public class MainHandler {
     public void addDisconnectListener(DisconnectListener listener) {
         this.disconnectListeners.add(listener);
     }
+
+    public void addAudioListener(AudioListener listener) {this.audioListeners.add(listener);}
 }
