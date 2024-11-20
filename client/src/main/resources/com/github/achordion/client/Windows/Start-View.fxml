@@ -13,7 +13,7 @@
             <Image url="@../Images/WelcomePageCORRECTED.png" />
          </image>
       </ImageView>
-      <TextField fx:id="textField" alignment="CENTER" layoutX="241.0" layoutY="489.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
+      <TextField fx:id="textField" alignment="CENTER" layoutX="241.0" layoutY="489.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
       <Button layoutX="150.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#onOfflineClicked" text="Offline" />
       <Button alignment="CENTER" layoutX="423.0" layoutY="489.0" mnemonicParsing="false" onAction="#onClickToConnectClicked" onMouseClicked="#onClickToConnectClicked" text="Click To Connect" />
    </children>

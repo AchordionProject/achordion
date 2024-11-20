@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 
-import javax.swing.text.html.ImageView;
+import javafx.scene.image.ImageView;
 import java.awt.*;
 import java.io.IOException;
 
