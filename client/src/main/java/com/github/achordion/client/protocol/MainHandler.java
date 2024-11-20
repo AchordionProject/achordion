@@ -11,7 +11,6 @@ import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.List;
 
 public class MainHandler {

@@ -2,14 +2,11 @@ package com.github.achordion.client.ui;
 
 import com.github.achordion.client.protocol.MainHandler;
 import com.github.achordion.client.protocol.handling.events.AudioEvent;
-import com.github.achordion.client.protocol.handling.listeners.AudioListener;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AudioRecorder {
 
@@ -69,7 +66,7 @@ public class AudioRecorder {
             Line.close();
         }
     }
-
+    //DELETE ME!!!
     public void playAudio(File audioFile){
         try(AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioFile)){
             Clip clip = AudioSystem.getClip();

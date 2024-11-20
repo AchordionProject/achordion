@@ -33,7 +33,8 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     private Label chords;
     @FXML
     private ToggleButton recordButton;
-
+    @FXML
+    private Button BackButton;
     @FXML
     private Button browseFileButton;
     private AudioRecorder audioRecorder;
@@ -116,4 +117,9 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         byte[] audioData = event.getAudioData();
         System.out.println("Here it is as a string"+ Arrays.toString(audioData) + "with length"+ audioData.length + "bytes of data");
     }
+    @FXML
+    public void onBackButtonClicked(ActionEvent event) {
+        BackToHome.ExitConnectionToHome(BackButton, mainController);
+    }
+
 }

@@ -9,8 +9,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -45,16 +43,28 @@ public class StartPageController {
 
         try {
             if(bypassconnection){
-                System.out.println("bypassconnection");
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
-                Parent root = loader.load();
-                //if successful, the ipaddress will be sent to second controller
-                SecondWindowController secondWController = loader.getController();
-                Stage stage = (Stage) AnyText.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
-                MainHandler mainhandler = MainHandler.getInstance();
-                mainhandler.addAudioListener(secondWController);
+                if(AlertClass.ShowConfirmation("Connection Status", "Welcome to Achordion!", "Click OK to continue")) {
+                   try {
+                       System.out.println("Connected to Server");
+                       System.out.println("bypassconnection");
+                       FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
+                       Parent root = loader.load();
+                       //if successful, the ipaddress will be sent to second controller
+                       SecondWindowController secondWController = loader.getController();
+                       Stage stage = (Stage) AnyText.getScene().getWindow();
+                       stage.setScene(new Scene(root));
+                       stage.show();
+                       MainHandler mainhandler = MainHandler.getInstance();
+                       mainhandler.addAudioListener(secondWController);
+                   }catch(IOException e){
+                       AlertClass.ShowError("Connection Error","Server not connected","Failed to connect.. Error: " + e.getMessage());
+                   }
+                }else{
+                    //This is what will happen if "Cancel" is clicked
+                    //Or if the red X is clicked
+                    primaryStage.requestFocus();
+                    return;
+                }
             }else {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
                 Parent root = loader.load();
@@ -79,13 +89,6 @@ public class StartPageController {
         }
         textField.clear();
     }
-    //not used but shows how to bind somthing to the ENTER button
-    @FXML
-    public void keyPressed(KeyEvent event){
-        if(event.getCode() == KeyCode.ENTER){
-            System.out.println("blaaaah");
-        }
-}
 // this boolean checks if the ip address is ip4 address
     @FXML
     public boolean isValidIPAddress(String ipAddress) {
