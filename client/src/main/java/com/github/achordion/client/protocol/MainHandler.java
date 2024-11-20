@@ -2,14 +2,16 @@ package com.github.achordion.client.protocol;
 
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.core.Packet;
-import com.github.achordion.client.protocol.handling.Note;
+import com.github.achordion.client.protocol.music.Chord;
+import com.github.achordion.client.protocol.music.Note;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
 import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
 import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
+import com.github.achordion.client.util.Tuple;
+import com.github.achordion.client.util.Utilities;
 
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.List;
 
 public class MainHandler {
@@ -40,14 +42,23 @@ public class MainHandler {
         }
     }
 
-    private List<Note> handleChordRequest(byte[] body) {
-        int nChords = Utilities.byteArrayToInt(body, 0);
+    private Tuple<Chord, List<Note>> handleChordRequest(byte[] body) {
+        Chord chord = Chord.fromBytes(body[0]);
+        int nChords = Utilities.byteArrayToInt(body, 1, 1);
         List<Note> list = new ArrayList<Note>(nChords);
-        for(int i = 1; i <= nChords; i++) {
-            Note note = Note.values()[Utilities.byteArrayToInt(body, i * 4)];
-            list.add(note);
+        Note[] values = Note.values();
+        int numLoops = nChords % 2 == 0 ? nChords / 2 : nChords / 2 + 1;
+        for(int i = 0; i < numLoops; i++) {
+            byte twoNotes = body[i + 2];
+            for(int j = 1; j >= 0; j--) {
+                int noteInd = (twoNotes >> (j * 4)) & 0xF;
+                Note note = values[noteInd];
+                if(note != Note.ZERO) {
+                    list.add(note);
+                }
+            }
         }
-        return list;
+        return new Tuple<>(chord, list);
     }
 
     public void sendDisconnectEvent(DisconnectEvent event) {
