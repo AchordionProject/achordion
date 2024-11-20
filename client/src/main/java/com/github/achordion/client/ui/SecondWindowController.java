@@ -4,8 +4,12 @@ import com.github.achordion.client.protocol.*;
 import com.github.achordion.client.protocol.core.Connection;
 import com.github.achordion.client.protocol.core.Packet;
 import com.github.achordion.client.protocol.core.MType;
+import com.github.achordion.client.protocol.handling.events.AudioEvent;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
-import com.github.achordion.client.protocol.handling.AchordListener;
+import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
+import com.github.achordion.client.protocol.handling.listeners.AudioListener;
+import com.github.achordion.client.protocol.handling.listeners.ChordListener;
+import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,21 +24,23 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Arrays;
 
-public class SecondWindowController implements AchordListener<ChordEvent> {
+public class SecondWindowController implements ChordListener, DisconnectListener, AudioListener {
 
     private MainController mainController;
     @FXML
     private Label chords;
     @FXML
     private ToggleButton recordButton;
-
+    @FXML
+    private Button BackButton;
     @FXML
     private Button browseFileButton;
-
+    private AudioRecorder audioRecorder;
     @FXML
     public void initialize() {
+        this.audioRecorder= new AudioRecorder();
         String css = getClass().getResource("/com/github/achordion/client/CssStyles/toggleButton.css").toExternalForm();
         recordButton.getStylesheets().add(css);
         recordButton.getStyleClass().add("toggle-button");
@@ -59,12 +65,22 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
     }
     @FXML
     public void onRecordingClicked(ActionEvent event){
-            if(recordButton.isSelected()) {
-                sendFile(new File("c-major.wav"));
-                recordButton.setText("Stop Recording");
-                System.out.println("Recording is selected");
-            }else
-                System.out.println("Recording is not selected");
+//            if(recordButton.isSelected()) {
+//                sendFile(new File("c-major.wav"));
+//                recordButton.setText("Stop Recording");
+//                System.out.println("Recording is selected");
+//            }else
+//                System.out.println("Recording is not selected")
+        if(recordButton.isSelected()) {
+            audioRecorder.startRecording();
+            recordButton.setText("Stop Recording");
+            System.out.println("Recording started");
+
+        }else{
+            audioRecorder.stopRecording();
+            recordButton.setText("Recording stopped");
+            System.out.println("Recording stopped");
+        }
     }
 
     @FXML
@@ -76,13 +92,6 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
         }
     }
 
-    @Override
-    public void handleEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getNotes().toString()) );
-        System.out.println(event.getNotes());
-    }
-
-
     private File chooseFile(Stage stage) {
          FileChooser fileChooser = new FileChooser();
          fileChooser.setTitle("Select a File");
@@ -91,4 +100,26 @@ public class SecondWindowController implements AchordListener<ChordEvent> {
          fileChooser.getExtensionFilters().add(filter);
          return fileChooser.showOpenDialog(stage);
      }
+
+    @Override
+    public void onChordEvent(ChordEvent event) {
+        Platform.runLater(() -> this.chords.setText(event.getData().toString()) );
+        System.out.println(event.getData());
+    }
+
+    @Override
+    public void onDisconnect(DisconnectEvent event) {
+        System.out.println("Connection was closed by server please transfer to the main page!");
+    }
+
+    @Override
+    public void onAudioEvent(AudioEvent event){
+        byte[] audioData = event.getAudioData();
+        System.out.println("Here it is as a string"+ Arrays.toString(audioData) + "with length"+ audioData.length + "bytes of data");
+    }
+    @FXML
+    public void onBackButtonClicked(ActionEvent event) {
+        BackToHome.ExitConnectionToHome(BackButton, mainController);
+    }
+
 }
