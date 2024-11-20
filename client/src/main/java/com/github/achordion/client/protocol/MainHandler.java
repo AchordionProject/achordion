@@ -2,22 +2,30 @@ package com.github.achordion.client.protocol;
 
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.core.Packet;
-import com.github.achordion.client.protocol.handling.Note;
+import com.github.achordion.client.protocol.handling.events.AudioEvent;
+import com.github.achordion.client.protocol.music.Chord;
+import com.github.achordion.client.protocol.music.Note;
 import com.github.achordion.client.protocol.handling.events.ChordEvent;
-import com.github.achordion.client.protocol.handling.AchordListener;
+import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
+import com.github.achordion.client.protocol.handling.listeners.AudioListener;
+import com.github.achordion.client.protocol.handling.listeners.ChordListener;
+import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
+import com.github.achordion.client.util.Tuple;
+import com.github.achordion.client.util.Utilities;
 
 import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.List;
 
 public class MainHandler {
     private static final MainHandler instance = new MainHandler();
 
-    List<AchordListener<ChordEvent>> chordListeners;
-
-
+    List<ChordListener> chordListeners;
+    List<DisconnectListener> disconnectListeners;
+    List<AudioListener> audioListeners;
     private MainHandler() {
         this.chordListeners = new ArrayList<>();
+        this.disconnectListeners = new ArrayList<>();
+        this.audioListeners = new ArrayList<>();
     }
 
     public static MainHandler getInstance() {
@@ -29,29 +37,58 @@ public class MainHandler {
             case CHORD -> {
                 System.out.println("CHORD event fired");
                 ChordEvent event = new ChordEvent(this, handleChordRequest(packet.getBody()));
-                sendToAll(chordListeners, event);
+                sendChordEvent(event);
             }
-            default -> System.out.println("No handler for message type: " + packet.getType());
+            default -> {
+                System.out.println("No handler for message type: " + packet.getType());
+            }
         }
     }
 
-    private List<Note> handleChordRequest(byte[] body) {
-        int nChords = Utilities.byteArrayToInt(body, 0);
+    private Tuple<Chord, List<Note>> handleChordRequest(byte[] body) {
+        Chord chord = Chord.fromBytes(body[0]);
+        int nChords = Utilities.byteArrayToInt(body, 1, 1);
         List<Note> list = new ArrayList<Note>(nChords);
-        for(int i = 1; i <= nChords; i++) {
-            Note note = Note.values()[Utilities.byteArrayToInt(body, i * 4)];
-            list.add(note);
+        Note[] values = Note.values();
+        int numLoops = nChords % 2 == 0 ? nChords / 2 : nChords / 2 + 1;
+        for(int i = 0; i < numLoops; i++) {
+            byte twoNotes = body[i + 2];
+            for(int j = 1; j >= 0; j--) {
+                int noteInd = (twoNotes >> (j * 4)) & 0xF;
+                Note note = values[noteInd];
+                if(note != Note.ZERO) {
+                    list.add(note);
+                }
+            }
         }
-        return list;
+        return new Tuple<>(chord, list);
     }
 
-    private <T extends EventObject> void sendToAll(List<AchordListener<T>> listeners, T event) {
-        for(AchordListener<T> listener : listeners) {
-            listener.handleEvent(event);
+    public void sendDisconnectEvent(DisconnectEvent event) {
+        for(DisconnectListener listener : disconnectListeners) {
+            listener.onDisconnect(event);
         }
     }
 
-    public void addChordListener(AchordListener<ChordEvent> listener) {
+    public void sendChordEvent(ChordEvent event) {
+        for(ChordListener listener : chordListeners) {
+            listener.onChordEvent(event);
+        }
+    }
+    public void sendAudioEvent(AudioEvent event) {
+        for(AudioListener listener : audioListeners) {
+            listener.onAudioEvent(event);
+        }
+    }
+
+
+    public void addChordListener(ChordListener listener) {
         this.chordListeners.add(listener);
     }
+
+    public void addDisconnectListener(DisconnectListener listener) {
+        this.disconnectListeners.add(listener);
+    }
+
+    public void addAudioListener(AudioListener listener) {this.audioListeners.add(listener);}
 }

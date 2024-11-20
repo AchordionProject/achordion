@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.StartPageController">
-   <Label fx:id="AnyText" prefHeight="19.0" prefWidth="303.0" style="-fx-font-size: 26;" text="Welcome to Achordion!" textAlignment="CENTER" />
-   <HBox alignment="CENTER" spacing="10.0">
-      <TextField fx:id="textField" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
-      <Button mnemonicParsing="false" onAction="#onClickToConnectClicked" text="Click To Connect" />
-   </HBox>
-</VBox>
+
+<AnchorPane maxHeight="567.0" maxWidth="693.0" minHeight="567.0" minWidth="693.0" prefHeight="567.0" prefWidth="693.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.StartPageController">
+   <children>
+      <ImageView blendMode="MULTIPLY" fitHeight="568.0" fitWidth="693.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <!-- this is the path for all images... just change the .jpg portion-->
+            <Image url="@../Images/WelcomePageCORRECTED.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="textField" alignment="CENTER" layoutX="241.0" layoutY="489.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
+      <Button layoutX="150.0" layoutY="488.0" mnemonicParsing="false" onMouseClicked="#onOfflineClicked" text="Offline" />
+      <Button alignment="CENTER" layoutX="423.0" layoutY="489.0" mnemonicParsing="false" onAction="#onClickToConnectClicked" onMouseClicked="#onClickToConnectClicked" text="Click To Connect" />
+   </children>
+</AnchorPane>
