@@ -10,13 +10,13 @@
       <ImageView fitHeight="603.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ChoiceBox fx:id="Abox" layoutX="187.0" layoutY="122.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Bbox" layoutX="267.0" layoutY="122.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Cbox" layoutX="349.0" layoutY="122.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Dbox" layoutX="149.0" layoutY="174.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Ebox" layoutX="229.0" layoutY="174.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Fbox" layoutX="307.0" layoutY="174.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Gbox" layoutX="386.0" layoutY="174.0" onMouseClicked="#AchordClicked" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Abox" layoutX="187.0" layoutY="122.0"  prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Bbox" layoutX="267.0" layoutY="122.0"  prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Cbox" layoutX="349.0" layoutY="122.0"  prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Dbox" layoutX="149.0" layoutY="174.0" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Ebox" layoutX="229.0" layoutY="174.0"  prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Fbox" layoutX="307.0" layoutY="174.0" prefHeight="26.0" prefWidth="65.0" />
+            <ChoiceBox fx:id="Gbox" layoutX="386.0" layoutY="174.0"  prefHeight="26.0" prefWidth="65.0" />
          </children>
       </AnchorPane>
    </children>
