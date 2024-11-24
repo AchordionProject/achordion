@@ -1,8 +1,11 @@
 package com.github.achordion.client.ui;
 
+import com.github.achordion.client.protocol.BackToHome;
 import com.github.achordion.client.protocol.core.MType;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 
@@ -19,7 +22,7 @@ public class OfflineWindowController {
         @FXML public ChoiceBox<String> Ebox;
         @FXML public ChoiceBox<String> Fbox;
         @FXML public ChoiceBox<String> Gbox;
-
+        @FXML public Button backButton;
         public AudioRecorder audioRecorder = new AudioRecorder();
 
         public void initialize() {
@@ -66,6 +69,11 @@ public class OfflineWindowController {
                 System.err.println("Error playing chord: " + e.getMessage());
             }
         }
+    @FXML
+    public void onBackButtonClicked(ActionEvent event) {
+        BackToHome.goToStart(backButton);
+    }
+
     //create a choice box
 //    @FXML
 //    public ChoiceBox<String> Abox;
