@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="519.75" prefWidth="693.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.SecondWindowController">
    <ImageView fitHeight="568.0" fitWidth="693.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <image>
-         <Image url="@../Images/MainWindow.png" />
+         <Image url="@../Images/BrokenTV.png" />
       </image></ImageView>
    <Button fx:id="BackButton" layoutX="285.0" layoutY="444.0" mnemonicParsing="false" onAction="#onBackButtonClicked" prefHeight="43.0" prefWidth="93.0" text="Back" />
 
