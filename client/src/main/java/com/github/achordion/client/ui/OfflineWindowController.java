@@ -38,7 +38,7 @@ public class OfflineWindowController {
 
         private void setupChoiceBox(ChoiceBox<String> box, String note) {
             // Add items to the choice box
-            box.getItems().addAll(note + " sharp", note + " minor");
+            box.getItems().addAll(note + " major", note + " minor");
 
             // Add change listener to immediately play sound when selection changes
             box.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -50,12 +50,57 @@ public class OfflineWindowController {
 
         private void playChord(String selectedChord) {
             String audioFilePath;
-            if (selectedChord.contains("sharp")) {
-                audioFilePath = "/com/github/achordion/client/Chords/c-major.wav";
-            } else {
-                audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+//            if (selectedChord.contains("sharp")) {
+//                audioFilePath = "/com/github/achordion/client/Chords/c-major.wav";
+//            } else {
+//                audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+//            }
+            if(selectedChord.contains("A")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/A_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+                }
+            }else if (selectedChord.contains("B")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/B_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/B_minor.wav";
+                }
+            } else if(selectedChord.contains("C")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/C_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/C_minor.wav";
+                }
+            }else if (selectedChord.contains("D")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/D_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/D_minor.wav";
+                }
+            }else if (selectedChord.contains("E")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/E_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/E_minor.wav";
+                }
+            }else if(selectedChord.contains("F")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/F_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/F_minor.wav";
+                }
+            }else if(selectedChord.contains("G")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/G_major.wav";
+                }
+                else{
+                    audioFilePath = "/com/github/achordion/client/Chords/G_minor.wav";
+                }
+            } else{
+                audioFilePath = "/com/github/achordion/client/Chords/0-minor.wav";
             }
-
             try {
                 URL audioURL = getClass().getResource(audioFilePath);
                 if (audioURL != null) {
