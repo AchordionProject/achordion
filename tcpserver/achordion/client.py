@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import Callable, Mapping, Union
 from achordion.chord import Chord, ChordType
 from achordion.note import Note
-from achordion.detect import run
+from achordion.detect import calculate_intervals, get_chord, run
 from achordion.logger import achord_logger
 from achordion.packing import pack_notes_into_bytes
 
@@ -22,8 +22,11 @@ class MessageType(enum.Enum):
         file = io.BytesIO(body)
         notes = run(file)
         body_to_send = bytearray()
-        # Retrieve recognized chord
-        body_to_send += Chord(Note.C, ChordType.MINOR).to_byte()
+        intervals = calculate_intervals(notes)
+        achord_logger.info(f"Calculated intervals: {intervals}")
+        chord_type: ChordType = get_chord(intervals)
+        achord_logger.info(f"Chord type: {chord_type}")
+        body_to_send += Chord(notes[0], chord_type).to_byte()
         body_to_send += len(notes).to_bytes(1, "big")
         notes_as_bytes = pack_notes_into_bytes(notes)
         body_to_send += notes_as_bytes

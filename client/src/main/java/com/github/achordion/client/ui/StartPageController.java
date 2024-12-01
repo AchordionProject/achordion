@@ -19,7 +19,7 @@ public class StartPageController {
     private TextField textField;
     //SET TO FALSE WHEN RUNNING SERVER + GUI
     //SET TO TRUE WHEN DEBUGGING GUI WINDOWS
-    private boolean bypassConnection = true;
+    private boolean bypassConnection = false;
 
     @FXML
     private Stage primaryStage;

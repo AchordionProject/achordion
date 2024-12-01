@@ -40,3 +40,5 @@ class Interval(enum.Enum):
     MIN7 = 10
     MAJ7 = 11
 
+def calculate_halfsteps_between_notes(note1: Note, note2: Note) -> Interval:
+    return Interval((note2.value - note1.value) % 12)
