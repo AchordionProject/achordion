@@ -1,11 +1,12 @@
 from typing import FrozenSet, List, Mapping, Optional, Tuple, Set
 from collections import Counter
+from itertools import permutations
 import io
 import numpy as np
 import librosa
 from achordion.logger import achord_logger
 from achordion.note import Note, Interval, calculate_halfsteps_between_notes
-from achordion.chord import ChordType
+from achordion.chord import Chord, ChordType
 
 def recognize_notes(samples: np.ndarray, sr: int | float) -> List[Tuple[float, Note]] :
     stft = np.abs(librosa.stft(samples))
@@ -39,22 +40,25 @@ CHORD_TYPES_INTERVALS: Mapping[ChordType, FrozenSet] = {
     ChordType.MINOR7: frozenset({ Interval.UNISON, Interval.MIN3, Interval.PERF5, Interval.MIN7 }),
 }
 
-def calculate_intervals(notes: List[Note]) -> Set[Interval]:
-    first_note = notes[0]
-    print(f"first note: {first_note}")
-    intervals = set()
-    for note in notes:
-        interval = calculate_halfsteps_between_notes(first_note, note)
-        print(f"Interval between {first_note} and {note} is {interval}")
-        intervals.add(interval)
-    return intervals
+def calculate_intervals(notes: List[Note]) -> List[tuple[Note, Set[Interval]]]:
+    result = list()
+    for perm in permutations(notes):
+        first_note = perm[0]
+        intervals = set()
+        for note in perm:
+            interval = calculate_halfsteps_between_notes(first_note, note)
+            intervals.add(interval)
+        result.append((first_note, intervals))
+    return result
 
 
-def get_chord(intervals: Set[Interval]) -> ChordType:
+
+def get_chord(permutations: List[tuple[Note, Set[Interval]]]) -> Chord:
     for chord_type, required_intervals in CHORD_TYPES_INTERVALS.items():
-        if intervals.issubset(required_intervals):
-            return chord_type
-    return ChordType.Undefined
+        for (first_note, perm) in permutations:
+            if perm.issubset(required_intervals):
+                return Chord(first_note, chord_type)
+    return Chord(Note.NO_NOTE, ChordType.Undefined)
 
 def run(file_obj: io.BytesIO) -> List[Note]:
     samples, sr = librosa.load(file_obj)

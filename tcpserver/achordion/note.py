@@ -4,7 +4,7 @@ import numpy as np
 A4_FREQ = 440.0
 
 class Note(enum.Enum):
-    NO_CHORD = 0
+    NO_NOTE = 0
     C = 1
     C_SHARP = 2
     D = 3
