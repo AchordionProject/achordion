@@ -45,6 +45,7 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         recordButton.getStylesheets().add(css);
         recordButton.getStyleClass().add("toggle-button");
         this.mainController = MainController.getInstance();
+
     }
 
     @FXML

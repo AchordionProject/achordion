@@ -1,8 +1,11 @@
 package com.github.achordion.client.ui;
 
+import com.github.achordion.client.protocol.BackToHome;
 import com.github.achordion.client.protocol.core.MType;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.MouseEvent;
 
@@ -19,7 +22,7 @@ public class OfflineWindowController {
         @FXML public ChoiceBox<String> Ebox;
         @FXML public ChoiceBox<String> Fbox;
         @FXML public ChoiceBox<String> Gbox;
-
+        @FXML public Button backButton;
         public AudioRecorder audioRecorder = new AudioRecorder();
 
         public void initialize() {
@@ -35,7 +38,7 @@ public class OfflineWindowController {
 
         private void setupChoiceBox(ChoiceBox<String> box, String note) {
             // Add items to the choice box
-            box.getItems().addAll(note + " sharp", note + " minor");
+            box.getItems().addAll(note + " major", note + " minor");
 
             // Add change listener to immediately play sound when selection changes
             box.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -47,12 +50,57 @@ public class OfflineWindowController {
 
         private void playChord(String selectedChord) {
             String audioFilePath;
-            if (selectedChord.contains("sharp")) {
-                audioFilePath = "/com/github/achordion/client/Chords/c-major.wav";
-            } else {
-                audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+//            if (selectedChord.contains("sharp")) {
+//                audioFilePath = "/com/github/achordion/client/Chords/c-major.wav";
+//            } else {
+//                audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+//            }
+            if(selectedChord.contains("A")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/A_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+                }
+            }else if (selectedChord.contains("B")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/B_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/B_minor.wav";
+                }
+            } else if(selectedChord.contains("C")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/C_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/C_minor.wav";
+                }
+            }else if (selectedChord.contains("D")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/D_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/D_minor.wav";
+                }
+            }else if (selectedChord.contains("E")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/E_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/E_minor.wav";
+                }
+            }else if(selectedChord.contains("F")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/F_major.wav";
+                }else{
+                    audioFilePath = "/com/github/achordion/client/Chords/F_minor.wav";
+                }
+            }else if(selectedChord.contains("G")){
+                if(selectedChord.contains("major")){
+                    audioFilePath = "/com/github/achordion/client/Chords/G_major.wav";
+                }
+                else{
+                    audioFilePath = "/com/github/achordion/client/Chords/G_minor.wav";
+                }
+            } else{
+                audioFilePath = "/com/github/achordion/client/Chords/0-minor.wav";
             }
-
             try {
                 URL audioURL = getClass().getResource(audioFilePath);
                 if (audioURL != null) {
@@ -66,6 +114,11 @@ public class OfflineWindowController {
                 System.err.println("Error playing chord: " + e.getMessage());
             }
         }
+    @FXML
+    public void onBackButtonClicked(ActionEvent event) {
+        BackToHome.goToStart(backButton);
+    }
+
     //create a choice box
 //    @FXML
 //    public ChoiceBox<String> Abox;
