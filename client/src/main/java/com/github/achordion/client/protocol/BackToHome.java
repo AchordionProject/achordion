@@ -18,6 +18,9 @@ public class BackToHome {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setFullScreen(false);
+            stage.setMaxHeight(568);
+            stage.setMaxWidth(693);
+
             stage.show();
         }catch(IOException e){
             AlertClass.ShowError("ERROR","ERROR","Error loading the start page");

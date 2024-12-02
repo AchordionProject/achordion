@@ -10,7 +10,7 @@
       <ImageView blendMode="MULTIPLY" fitHeight="568.0" fitWidth="693.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <!-- this is the path for all images... just change the .jpg portion-->
-            <Image url="@../Images/WelcomePageCORRECTED.png" />
+            <Image url="@../Images/WelcomePage.png" />
          </image>
       </ImageView>
       <TextField fx:id="textField" alignment="CENTER" layoutX="241.0" layoutY="489.0" prefHeight="25.0" prefWidth="150.0" promptText="Enter Server ID" />
