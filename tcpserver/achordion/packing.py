@@ -1,7 +1,7 @@
 from achordion.note import Note
-from typing import Set
+from typing import List 
 
-def pack_notes_into_bytes(notes: Set[Note]) -> bytes:
+def pack_notes_into_bytes(notes: List[Note]) -> bytes:
     note_bytes = 0
     for i, note in enumerate(notes):
         note_bytes |= ((note.value & 0xF) << (i * 4))

@@ -3,10 +3,11 @@ from achordion.note import Note
 from dataclasses import dataclass
 
 class ChordType(enum.Enum):
-    MAJOR = 0
-    MINOR = 1
-    MAJOR7 = 2
-    MINOR7 = 3
+    Undefined = 0
+    MAJOR = 1
+    MINOR = 2
+    MAJOR7 = 3
+    MINOR7 = 4
 
 @dataclass(frozen=True)
 class Chord:
