@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -10,13 +11,22 @@
       <image>
          <Image url="@../Images/BrokenTV.png" />
       </image></ImageView>
-   <Button fx:id="BackButton" layoutX="285.0" layoutY="444.0" mnemonicParsing="false" onAction="#onBackButtonClicked" prefHeight="43.0" prefWidth="93.0" text="Back" />
+   <Button fx:id="BackButton" layoutX="285.0" layoutY="444.0" mnemonicParsing="false" onAction="#onBackButtonClicked" prefHeight="43.0" prefWidth="93.0" text="Back" wrapText="true">
+      <font>
+         <Font name="Verdana" size="22.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
 
     <Label fx:id="ipAddressLabel" layoutX="20" layoutY="20" />
    <VBox layoutX="198.0" layoutY="90.0" prefHeight="200.0" prefWidth="183.0" />
-   <Label fx:id="chords" alignment="CENTER" contentDisplay="CENTER" layoutX="466.0" layoutY="130.0" prefHeight="68.0" prefWidth="125.0" text="No notes yet" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+   <Label fx:id="chords" alignment="CENTER" contentDisplay="CENTER" layoutX="466.0" layoutY="130.0" prefHeight="68.0" prefWidth="125.0" text="waiting for input" textAlignment="CENTER" textFill="WHITE" wrapText="true">
       <font>
-         <Font size="21.0" />
+         <Font name="VCR OSD Mono" size="20.0" />
       </font></Label>
-   <Button fx:id="browseFileButton" layoutX="31.0" layoutY="270.0" mnemonicParsing="false" onAction="#onFileBrowse" opacity="0.0" prefHeight="224.0" prefWidth="197.0" textFill="TRANSPARENT" />
+   <Button fx:id="browseFileButton" layoutX="31.0" layoutY="270.0" mnemonicParsing="false" onAction="#onFileBrowse" opacity="0.0" prefHeight="224.0" prefWidth="197.0" textFill="TRANSPARENT">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor></Button>
 </AnchorPane>
