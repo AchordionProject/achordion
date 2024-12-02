@@ -1,5 +1,6 @@
 import asyncio
 import io
+import gzip
 import enum
 from dataclasses import dataclass
 from typing import Callable, Mapping, Union
@@ -19,7 +20,9 @@ class MessageType(enum.Enum):
 
     @staticmethod
     def chord_recognition(body: PacketBytes) -> "Packet":
-        file = io.BytesIO(body)
+        with gzip.GzipFile(fileobj=io.BytesIO(body)) as compressed:
+            decompressedFile = compressed.read()
+        file = io.BytesIO(decompressedFile)
         notes = run(file)
         body_to_send = bytearray()
         intervals = calculate_intervals(notes)

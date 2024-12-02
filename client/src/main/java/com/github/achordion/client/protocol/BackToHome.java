@@ -17,7 +17,7 @@ public class BackToHome {
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setFullScreen(true);
+            stage.setFullScreen(false);
             stage.show();
         }catch(IOException e){
             AlertClass.ShowError("ERROR","ERROR","Error loading the start page");

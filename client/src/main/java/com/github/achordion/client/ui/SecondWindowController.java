@@ -19,9 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -53,8 +51,10 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         Connection connection = this.mainController.getConnection();
         Path filePath = file.toPath();
         try{
-            byte[] fileData = Files.readAllBytes(filePath);
-            Packet<MType> packet = new Packet<>(MType.CHORD, fileData);
+            InputStream is = new FileInputStream(file);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            GZipper.gzip(is, os);
+            Packet<MType> packet = new Packet<>(MType.CHORD, os.toByteArray());
             connection.send(packet);
         }catch(FileNotFoundException e){
            AlertClass.ShowError("Error","File not Found error","The file '"+filePath+"' could  not be found");
@@ -109,7 +109,7 @@ public class SecondWindowController implements ChordListener, DisconnectListener
 
     @Override
     public void onDisconnect(DisconnectEvent event) {
-        System.out.println("Connection was closed by server please transfer to the main page!");
+        Platform.runLater(() -> BackToHome.ExitConnectionToHome(BackButton, mainController));
     }
 
     @Override
