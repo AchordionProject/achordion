@@ -4,6 +4,7 @@ import com.github.achordion.client.protocol.core.MType;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 import java.io.File;
@@ -13,59 +14,113 @@ public class OfflineWindowController {
 
 
         @FXML public ChoiceBox<String> Abox;
-        @FXML public ChoiceBox<String> Bbox;
-        @FXML public ChoiceBox<String> Cbox;
-        @FXML public ChoiceBox<String> Dbox;
-        @FXML public ChoiceBox<String> Ebox;
-        @FXML public ChoiceBox<String> Fbox;
-        @FXML public ChoiceBox<String> Gbox;
+        @FXML public Label chordSelected;
 
         public AudioRecorder audioRecorder = new AudioRecorder();
 
         public void initialize() {
             // Initialize all choice boxes with their options
-            setupChoiceBox(Abox, "A");
-            setupChoiceBox(Bbox, "B");
-            setupChoiceBox(Cbox, "C");
-            setupChoiceBox(Dbox, "D");
-            setupChoiceBox(Ebox, "E");
-            setupChoiceBox(Fbox, "F");
-            setupChoiceBox(Gbox, "G");
+            setupChoiceBox(Abox, "A", "B", "C", "D", "E", "F", "G");
         }
 
-        private void setupChoiceBox(ChoiceBox<String> box, String note) {
+        private void setupChoiceBox(ChoiceBox<String> box, String noteA, String noteB, String noteC, String noteD, String noteE, String noteF, String noteG) {
             // Add items to the choice box
-            box.getItems().addAll(note + " sharp", note + " minor");
+            box.getItems().addAll(noteA + " sharp", noteA + " minor");
+            box.getItems().addAll(noteB + " sharp", noteB + " minor");
+            box.getItems().addAll(noteC + " sharp", noteC + " minor");
+            box.getItems().addAll(noteD + " sharp", noteD + " minor");
+            box.getItems().addAll(noteE + " sharp", noteE + " minor");
+            box.getItems().addAll(noteF + " sharp", noteF + " minor");
+            box.getItems().addAll(noteG + " sharp", noteG + " minor");
+
+
 
             // Add change listener to immediately play sound when selection changes
             box.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
                     playChord(newValue);
+
+                    // Display the selected chord on the screen
+                    chordSelected.setText(newValue);
+                    //System.out.println("Updating label to: " + newValue); // Debug statement
+                    //chordSelected.setText("Selected Chord: " + newValue);
                 }
             });
         }
 
-        private void playChord(String selectedChord) {
-            String audioFilePath;
-            if (selectedChord.contains("sharp")) {
-                audioFilePath = "/com/github/achordion/client/Chords/c-major.wav";
-            } else {
-                audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
-            }
 
-            try {
-                URL audioURL = getClass().getResource(audioFilePath);
-                if (audioURL != null) {
-                    File audioFile = new File(audioURL.getPath());
-                    audioRecorder.playAudio(audioFile);
-                    System.out.println(selectedChord + " was played");
-                } else {
-                    System.err.println("Could not find audio file: " + audioFilePath);
-                }
-            } catch (Exception e) {
-                System.err.println("Error playing chord: " + e.getMessage());
-            }
+
+    private void playChord(String selectedChord) {
+        String audioFilePath;
+        switch (selectedChord) {
+            case "A sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "A minor":
+                audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+                break;
+            //
+            case "B sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "B minor":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+                //
+            case "C sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "C minor":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            //
+            case "D sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "D minor":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            //
+            case "E sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "E minor":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            //
+            case "F sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "F minor":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            //
+            case "G sharp":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+            case "G minor":
+                audioFilePath = "/com/github/achordion/client/Chords/";
+                break;
+
+
+            default:
+                System.err.println("No audio file for the selected chord: " + selectedChord);
+                return;
         }
+
+        try {
+            URL audioURL = getClass().getResource(audioFilePath);
+            if (audioURL != null) {
+                File audioFile = new File(audioURL.getPath());
+                audioRecorder.playAudio(audioFile);
+                System.out.println(selectedChord + " was played");
+            } else {
+                System.err.println("Could not find audio file: " + audioFilePath);
+            }
+        } catch (Exception e) {
+            System.err.println("Error playing chord: " + e.getMessage());
+        }
+    }
     //create a choice box
 //    @FXML
 //    public ChoiceBox<String> Abox;
