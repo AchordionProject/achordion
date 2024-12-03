@@ -54,52 +54,52 @@ public class OfflineWindowController {
         String audioFilePath;
         switch (selectedChord) {
             case "A sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "A minor":
                 audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
                 break;
             //
             case "B sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "B minor":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
                 //
             case "C sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "C minor":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
             case "D sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "D minor":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
             case "E sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "E minor":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
             case "F sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "F minor":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
             case "G sharp":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "G minor":
-                audioFilePath = "/com/github/achordion/client/Chords/";
+                //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
 
 
@@ -108,18 +108,18 @@ public class OfflineWindowController {
                 return;
         }
 
-        try {
-            URL audioURL = getClass().getResource(audioFilePath);
-            if (audioURL != null) {
-                File audioFile = new File(audioURL.getPath());
-                audioRecorder.playAudio(audioFile);
-                System.out.println(selectedChord + " was played");
-            } else {
-                System.err.println("Could not find audio file: " + audioFilePath);
-            }
-        } catch (Exception e) {
-            System.err.println("Error playing chord: " + e.getMessage());
-        }
+//        try {
+//            URL audioURL = getClass().getResource(audioFilePath);
+//            if (audioURL != null) {
+//                File audioFile = new File(audioURL.getPath());
+//                audioRecorder.playAudio(audioFile);
+//                System.out.println(selectedChord + " was played");
+//            } else {
+//                System.err.println("Could not find audio file: " + audioFilePath);
+//            }
+//        } catch (Exception e) {
+//            System.err.println("Error playing chord: " + e.getMessage());
+//        }
     }
     //create a choice box
 //    @FXML
