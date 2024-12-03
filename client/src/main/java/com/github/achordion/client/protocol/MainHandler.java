@@ -61,7 +61,7 @@ public class MainHandler {
                 }
             }
         }
-        return new Tuple<>(chord, list);
+        return new Tuple<>(chord, list.reversed());
     }
 
     public void sendDisconnectEvent(DisconnectEvent event) {

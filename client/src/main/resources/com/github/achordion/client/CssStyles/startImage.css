@@ -1,5 +1,5 @@
 .root {
-    -fx-background-image: url("/com/github/achordion/client/Images/WelcomePageEdited.jpg");
+    -fx-background-image: url("/com/github/achordion/client/Images/WelcomePage.png");
     -fx-background-size: cover;  /* Makes sure the image covers the entire window */
     -fx-background-position: center center;  /* Centers the image */
     -fx-background-repeat: no-repeat;  /* Prevents the image from repeating */

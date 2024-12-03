@@ -1,8 +1,11 @@
 package com.github.achordion.client.ui;
 
+import com.github.achordion.client.protocol.BackToHome;
 import com.github.achordion.client.protocol.core.MType;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -33,8 +36,6 @@ public class OfflineWindowController {
             box.getItems().addAll(noteF + " major", noteF + " minor");
             box.getItems().addAll(noteG + " major", noteG + " minor");
 
-
-
             // Add change listener to immediately play sound when selection changes
             box.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -49,59 +50,57 @@ public class OfflineWindowController {
         }
 
 
-
     private void playChord(String selectedChord) {
         String audioFilePath;
         switch (selectedChord) {
             case "A major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/A_major.wav";
                 break;
             case "A minor":
                 audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
                 break;
             //
             case "B major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/B_major.wav";
                 break;
             case "B minor":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/B_minor.wav";
                 break;
                 //
             case "C major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/C_major.wav";    
                 break;
             case "C minor":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/C_minor.wav";
                 break;
             //
             case "D major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/D_major.wav";
                 break;
             case "D minor":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/D_minor.wav";
                 break;
             //
             case "E major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/E_major.wav";
                 break;
             case "E minor":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/E_minor.wav";
                 break;
             //
             case "F major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/F_major.wav";
                 break;
             case "F minor":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/F_minor.wav";
                 break;
             //
             case "G major":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/G_major.wav";
                 break;
             case "G minor":
-                //audioFilePath = "/com/github/achordion/client/Chords/";
+                audioFilePath = "/com/github/achordion/client/Chords/G_minor.wav";
                 break;
-
 
             default:
                 System.err.println("No audio file for the selected chord: " + selectedChord);
@@ -121,6 +120,7 @@ public class OfflineWindowController {
 //            System.err.println("Error playing chord: " + e.getMessage());
 //        }
     }
+
     //create a choice box
 //    @FXML
 //    public ChoiceBox<String> Abox;
