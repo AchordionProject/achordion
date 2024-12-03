@@ -25,13 +25,13 @@ public class OfflineWindowController {
 
         private void setupChoiceBox(ChoiceBox<String> box, String noteA, String noteB, String noteC, String noteD, String noteE, String noteF, String noteG) {
             // Add items to the choice box
-            box.getItems().addAll(noteA + " sharp", noteA + " minor");
-            box.getItems().addAll(noteB + " sharp", noteB + " minor");
-            box.getItems().addAll(noteC + " sharp", noteC + " minor");
-            box.getItems().addAll(noteD + " sharp", noteD + " minor");
-            box.getItems().addAll(noteE + " sharp", noteE + " minor");
-            box.getItems().addAll(noteF + " sharp", noteF + " minor");
-            box.getItems().addAll(noteG + " sharp", noteG + " minor");
+            box.getItems().addAll(noteA + " major", noteA + " minor");
+            box.getItems().addAll(noteB + " major", noteB + " minor");
+            box.getItems().addAll(noteC + " major", noteC + " minor");
+            box.getItems().addAll(noteD + " major", noteD + " minor");
+            box.getItems().addAll(noteE + " major", noteE + " minor");
+            box.getItems().addAll(noteF + " major", noteF + " minor");
+            box.getItems().addAll(noteG + " major", noteG + " minor");
 
 
 
@@ -53,49 +53,49 @@ public class OfflineWindowController {
     private void playChord(String selectedChord) {
         String audioFilePath;
         switch (selectedChord) {
-            case "A sharp":
+            case "A major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "A minor":
                 audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
                 break;
             //
-            case "B sharp":
+            case "B major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "B minor":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
                 //
-            case "C sharp":
+            case "C major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "C minor":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
-            case "D sharp":
+            case "D major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "D minor":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
-            case "E sharp":
+            case "E major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "E minor":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
-            case "F sharp":
+            case "F major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "F minor":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             //
-            case "G sharp":
+            case "G major":
                 //audioFilePath = "/com/github/achordion/client/Chords/";
                 break;
             case "G minor":
