@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -46,7 +47,8 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         recordButton.getStyleClass().add("toggle-button");
         */
         this.mainController = MainController.getInstance();
-
+        Font font = Font.loadFont(getClass().getResource("/com/github/achordion/client/Fonts/VCR_OSD_MONO_1.001.ttf").toExternalForm(), 20);
+        this.chords.setFont(font);
     }
 
 
