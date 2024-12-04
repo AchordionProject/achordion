@@ -2,6 +2,7 @@ package com.github.achordion.client.ui;
 
 import com.github.achordion.client.protocol.BackToHome;
 import com.github.achordion.client.protocol.core.MType;
+import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

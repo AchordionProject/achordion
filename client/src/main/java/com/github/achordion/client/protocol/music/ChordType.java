@@ -11,4 +11,14 @@ public enum ChordType {
         }
         return values[num];
     }
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case MINOR -> "m";
+            case MAJOR7 -> "7";
+            case MINOR7 -> "m7";
+            default -> "";
+        };
+    }
 }
