@@ -32,7 +32,7 @@ public class OfflineWindowController {
         if (mainController == null) {
             System.err.println("mainController is null!");
         }
-        BackToHome.ExitConnectionToHome(BackButton, mainController);
+        BackToHome.goToStart(BackButton);
     }
 
 

@@ -117,9 +117,7 @@ public class SecondWindowController implements ChordListener, DisconnectListener
 
     @Override
     public void onChordEvent(ChordEvent event) {
-        Platform.runLater(() -> {this.chords.setText(event.getData().toString());
-            System.out.println(this.chords.getText());});
-        System.out.println("Received chords " + event.getData().toString());
+        Platform.runLater(() -> this.chords.setText(event.getData().toString()));
     }
 
     @Override
@@ -130,7 +128,6 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     @Override
     public void onAudioEvent(AudioEvent event){
         byte[] audioData = event.getAudioData();
-        System.out.println("Here it is as a string"+ Arrays.toString(audioData) + "with length"+ audioData.length + "bytes of data");
     }
     @FXML
     public void onBackButtonClicked(ActionEvent event) {
