@@ -3,13 +3,13 @@ package com.github.achordion.client.ui;
 import com.github.achordion.client.protocol.MainController;
 import com.github.achordion.client.protocol.MainHandler;
 import com.github.achordion.client.protocol.AlertClass;
+import com.github.achordion.client.protocol.WindowLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -33,15 +33,14 @@ public class StartPageController {
     protected void onOfflineClicked() throws IOException {
         System.out.println("The button was clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
-        Parent root = loader.load();
-        OfflineWindowController offlineWindowController = loader.getController();
-        Stage stage = (Stage) textField.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setMaxHeight(568);
-        stage.setMaxWidth(693);
-        stage.setMinHeight(519.75);
-        stage.setMinWidth(693);
-        stage.show();
+        WindowLoader.loadWindow(loader,textField);
+//        Parent root = loader.load();
+//        OfflineWindowController offlineWindowController = loader.getController();
+//        Stage stage = (Stage) textField.getScene().getWindow();
+//        stage.setScene(new Scene(root));
+//        stage.setMaxHeight(568);
+//        stage.setMaxWidth(693);
+//        stage.show();
     }
 
     @FXML

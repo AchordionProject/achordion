@@ -10,6 +10,6 @@ public record Chord(Note bnote, ChordType ctype) {
 
     @Override
     public String toString() {
-        return bnote + " " + ctype;
+        return bnote.toString() + ctype.toString();
     }
 }

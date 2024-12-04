@@ -12,10 +12,15 @@ import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -23,6 +28,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+
 
 public class SecondWindowController implements ChordListener, DisconnectListener, AudioListener {
 
@@ -36,7 +42,8 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     @FXML
     private Button browseFileButton;
     private AudioRecorder audioRecorder;
-
+    @FXML
+    private Button chordLibButton;
     @FXML
     public void initialize() {
         /*
@@ -46,7 +53,8 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         recordButton.getStyleClass().add("toggle-button");
         */
         this.mainController = MainController.getInstance();
-
+        Font font = Font.loadFont(getClass().getResource("/com/github/achordion/client/Fonts/VCR_OSD_MONO_1.001.ttf").toExternalForm(), 20);
+        this.chords.setFont(font);
     }
 
 
@@ -109,8 +117,7 @@ public class SecondWindowController implements ChordListener, DisconnectListener
 
     @Override
     public void onChordEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getData().toString()) );
-        System.out.println(event.getData());
+        Platform.runLater(() -> this.chords.setText(event.getData().toString()));
     }
 
     @Override
@@ -121,11 +128,30 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     @Override
     public void onAudioEvent(AudioEvent event){
         byte[] audioData = event.getAudioData();
-        System.out.println("Here it is as a string"+ Arrays.toString(audioData) + "with length"+ audioData.length + "bytes of data");
     }
     @FXML
     public void onBackButtonClicked(ActionEvent event) {
         BackToHome.ExitConnectionToHome(BackButton, mainController);
     }
 
+    /*
+    @FXML
+    public void onChordLibClicked(ActionEvent event) {
+        ToOfflineFromOnline.ChordLibButton(chordLibButton);
+    }
+     */
+    @FXML
+    public void onChordLibClicked() throws IOException {
+        //if (textField != null) {
+            System.out.println("The button was clicked");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
+            Stage stage = (Stage) chordLibButton.getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.setMaxHeight(568);
+            stage.setMaxWidth(693);
+            stage.show();
+        //} else {
+            //System.out.println("error");
+        //}
+    }
 }

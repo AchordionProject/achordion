@@ -33,6 +33,8 @@ public class MainController {
         if(this.receiverThread == null || this.connection == null) { return; }
         this.receiverThread.stopReceiverThread();
         this.connection.close();
+        this.receiverThread = null;
+        this.connection = null;
     }
 
     public Connection getConnection() {

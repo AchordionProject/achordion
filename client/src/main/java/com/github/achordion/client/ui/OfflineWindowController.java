@@ -5,6 +5,7 @@ import com.github.achordion.client.protocol.MainController;
 import com.github.achordion.client.protocol.core.MType;
 import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
 import javafx.application.Platform;
+import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class OfflineWindowController {
             if (mainController == null) {
                 System.err.println("mainController is null!");
             }
-            BackToHome.ExitConnectionToHome(BackButton, mainController);
+            BackToHome.goToStart(BackButton);
         }
 
 
