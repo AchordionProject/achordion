@@ -38,6 +38,7 @@ public class BackToHome {
         if(mainController != null && mainController.isConnected()) {
             try {
                 mainController.disconnect();
+                System.out.println("Now I am going to transfer you");
                 goToStart(ServerBackButton);
             } catch(IOException e) {
                 AlertClass.ShowError("Error", "Error", "Error disconnecting from main controller");
