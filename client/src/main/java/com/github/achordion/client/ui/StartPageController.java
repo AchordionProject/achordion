@@ -85,7 +85,7 @@ public class StartPageController {
                 mainhandler.addChordListener(secondWController);
                 mainhandler.addDisconnectListener(secondWController);
                 mainhandler.addAudioListener(secondWController);
-                AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
+                AlertClass.ShowConfirmation("Sucess!!", "ipAddress", "Connected to Server");
 
                 Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));

@@ -1,7 +1,10 @@
 package com.github.achordion.client.ui;
 
 import com.github.achordion.client.protocol.BackToHome;
+import com.github.achordion.client.protocol.MainController;
 import com.github.achordion.client.protocol.core.MType;
+import com.github.achordion.client.protocol.handling.events.DisconnectEvent;
+import javafx.application.Platform;
 import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,12 +22,31 @@ public class OfflineWindowController {
 
         @FXML public ChoiceBox<String> Abox;
         @FXML public Label chordSelected;
+        @FXML private Button BackButton;
+    @FXML
+    public void onBackButtonClicked(ActionEvent event) {
+        System.out.println("Back button clicked");
+        if (BackButton == null) {
+            System.err.println("BackButton is null!");
+        }
+        if (mainController == null) {
+            System.err.println("mainController is null!");
+        }
+        BackToHome.ExitConnectionToHome(BackButton, mainController);
+    }
+
+
+        public void onDisconnect(DisconnectEvent event) {
+          Platform.runLater(() -> BackToHome.ExitConnectionToHome(BackButton, mainController));
+        }
 
         public AudioRecorder audioRecorder = new AudioRecorder();
+        private MainController mainController;
 
         public void initialize() {
             // Initialize all choice boxes with their options
             setupChoiceBox(Abox, "A", "B", "C", "D", "E", "F", "G");
+            this.mainController = MainController.getInstance();
         }
 
         private void setupChoiceBox(ChoiceBox<String> box, String noteA, String noteB, String noteC, String noteD, String noteE, String noteF, String noteG) {
