@@ -3,13 +3,13 @@ package com.github.achordion.client.ui;
 import com.github.achordion.client.protocol.MainController;
 import com.github.achordion.client.protocol.MainHandler;
 import com.github.achordion.client.protocol.AlertClass;
+import com.github.achordion.client.protocol.WindowLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.UnknownHostException;
 
@@ -19,7 +19,7 @@ public class StartPageController {
     private TextField textField;
     //SET TO FALSE WHEN RUNNING SERVER + GUI
     //SET TO TRUE WHEN DEBUGGING GUI WINDOWS
-    private boolean bypassConnection = true;
+    private boolean bypassConnection = false;
 
     @FXML
     private Stage primaryStage;
@@ -33,13 +33,14 @@ public class StartPageController {
     protected void onOfflineClicked() throws IOException {
         System.out.println("The button was clicked");
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
-        Parent root = loader.load();
-        OfflineWindowController offlineWindowController = loader.getController();
-        Stage stage = (Stage) textField.getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.setMaxHeight(568);
-        stage.setMaxWidth(693);
-        stage.show();
+        WindowLoader.loadWindow(loader,textField);
+//        Parent root = loader.load();
+//        OfflineWindowController offlineWindowController = loader.getController();
+//        Stage stage = (Stage) textField.getScene().getWindow();
+//        stage.setScene(new Scene(root));
+//        stage.setMaxHeight(568);
+//        stage.setMaxWidth(693);
+//        stage.show();
     }
 
     @FXML
@@ -84,7 +85,7 @@ public class StartPageController {
                 mainhandler.addChordListener(secondWController);
                 mainhandler.addDisconnectListener(secondWController);
                 mainhandler.addAudioListener(secondWController);
-                AlertClass.ShowError("Sucess!!", "ipAddress", "Connected to Server");
+                AlertClass.ShowConfirmation("Sucess!!", "ipAddress", "Connected to Server");
 
                 Stage stage = (Stage) textField.getScene().getWindow();
                 stage.setScene(new Scene(root));

@@ -4,7 +4,7 @@ import numpy as np
 A4_FREQ = 440.0
 
 class Note(enum.Enum):
-    NO_CHORD = 0
+    NO_NOTE = 0
     C = 1
     C_SHARP = 2
     D = 3
@@ -40,3 +40,5 @@ class Interval(enum.Enum):
     MIN7 = 10
     MAJ7 = 11
 
+def calculate_halfsteps_between_notes(note1: Note, note2: Note) -> Interval:
+    return Interval((note2.value - note1.value) % 12)

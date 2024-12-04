@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.OfflineWindowController">
+<StackPane maxHeight="519.75" maxWidth="693.0" minHeight="519.75" minWidth="693.0" prefHeight="519.75" prefWidth="693.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.achordion.client.ui.OfflineWindowController">
    <children>
-      <ImageView fitHeight="603.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane>
          <children>
-            <ChoiceBox fx:id="Abox" layoutX="187.0" layoutY="122.0"  prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Bbox" layoutX="267.0" layoutY="122.0"  prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Cbox" layoutX="349.0" layoutY="122.0"  prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Dbox" layoutX="149.0" layoutY="174.0" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Ebox" layoutX="229.0" layoutY="174.0"  prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Fbox" layoutX="307.0" layoutY="174.0" prefHeight="26.0" prefWidth="65.0" />
-            <ChoiceBox fx:id="Gbox" layoutX="386.0" layoutY="174.0"  prefHeight="26.0" prefWidth="65.0" />
+            <ImageView fitHeight="519.75" fitWidth="693.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../Images/ChordLibraryPage.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="519.75" maxWidth="693.0" minHeight="519.75" minWidth="693.0" prefHeight="519.75" prefWidth="693.0">
+         <children>
+            <ChoiceBox fx:id="Abox" layoutX="181.0" layoutY="247.0" prefHeight="26.0" prefWidth="86.0" />
+            <Label fx:id="chordSelected" alignment="CENTER" contentDisplay="CENTER" layoutX="395.0" layoutY="247.0" prefHeight="27.0" prefWidth="130.0" text="Select a chord" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="BackButton" layoutX="291.0" layoutY="444.0" onAction="#onBackButtonClicked" prefHeight="43.0" prefWidth="93.0" text="Back">
+               <font>
+                  <Font name="Verdana" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </AnchorPane>
    </children>

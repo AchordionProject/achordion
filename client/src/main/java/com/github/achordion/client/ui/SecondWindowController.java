@@ -12,19 +12,23 @@ import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+
 
 public class SecondWindowController implements ChordListener, DisconnectListener, AudioListener {
 
@@ -39,13 +43,20 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     private Button browseFileButton;
     private AudioRecorder audioRecorder;
     @FXML
+    private Button chordLibButton;
+    @FXML
     public void initialize() {
+        /*
         this.audioRecorder= new AudioRecorder();
         String css = getClass().getResource("/com/github/achordion/client/CssStyles/toggleButton.css").toExternalForm();
         recordButton.getStylesheets().add(css);
         recordButton.getStyleClass().add("toggle-button");
+        */
         this.mainController = MainController.getInstance();
+        Font font = Font.loadFont(getClass().getResource("/com/github/achordion/client/Fonts/VCR_OSD_MONO_1.001.ttf").toExternalForm(), 20);
+        this.chords.setFont(font);
     }
+
 
     @FXML
     public void sendFile(File file){
@@ -53,8 +64,10 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         Connection connection = this.mainController.getConnection();
         Path filePath = file.toPath();
         try{
-            byte[] fileData = Files.readAllBytes(filePath);
-            Packet<MType> packet = new Packet<>(MType.CHORD, fileData);
+            InputStream is = new FileInputStream(file);
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            GZipper.gzip(is, os);
+            Packet<MType> packet = new Packet<>(MType.CHORD, os.toByteArray());
             connection.send(packet);
         }catch(FileNotFoundException e){
            AlertClass.ShowError("Error","File not Found error","The file '"+filePath+"' could  not be found");
@@ -63,14 +76,15 @@ public class SecondWindowController implements ChordListener, DisconnectListener
             AlertClass.ShowError("Error","Error",( "File found but not reading " + e.getMessage()));
         }
     }
+    /*
     @FXML
     public void onRecordingClicked(ActionEvent event){
-//            if(recordButton.isSelected()) {
-//                sendFile(new File("c-major.wav"));
-//                recordButton.setText("Stop Recording");
-//                System.out.println("Recording is selected");
-//            }else
-//                System.out.println("Recording is not selected")
+            if(recordButton.isSelected()) {
+                sendFile(new File("c-major.wav"));
+                recordButton.setText("Stop Recording");
+                System.out.println("Recording is selected");
+            }else
+                System.out.println("Recording is not selected")
         if(recordButton.isSelected()) {
             audioRecorder.startRecording();
             recordButton.setText("Stop Recording");
@@ -82,7 +96,7 @@ public class SecondWindowController implements ChordListener, DisconnectListener
             System.out.println("Recording stopped");
         }
     }
-
+*/
     @FXML
     public void onFileBrowse(ActionEvent event){
         if(browseFileButton.isFocused()) {
@@ -103,23 +117,41 @@ public class SecondWindowController implements ChordListener, DisconnectListener
 
     @Override
     public void onChordEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getData().toString()) );
-        System.out.println(event.getData());
+        Platform.runLater(() -> this.chords.setText(event.getData().toString()));
     }
 
     @Override
     public void onDisconnect(DisconnectEvent event) {
-        System.out.println("Connection was closed by server please transfer to the main page!");
+        Platform.runLater(() -> BackToHome.ExitConnectionToHome(BackButton, mainController));
     }
 
     @Override
     public void onAudioEvent(AudioEvent event){
         byte[] audioData = event.getAudioData();
-        System.out.println("Here it is as a string"+ Arrays.toString(audioData) + "with length"+ audioData.length + "bytes of data");
     }
     @FXML
     public void onBackButtonClicked(ActionEvent event) {
         BackToHome.ExitConnectionToHome(BackButton, mainController);
     }
 
+    /*
+    @FXML
+    public void onChordLibClicked(ActionEvent event) {
+        ToOfflineFromOnline.ChordLibButton(chordLibButton);
+    }
+     */
+    @FXML
+    public void onChordLibClicked() throws IOException {
+        //if (textField != null) {
+            System.out.println("The button was clicked");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
+            Stage stage = (Stage) chordLibButton.getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.setMaxHeight(568);
+            stage.setMaxWidth(693);
+            stage.show();
+        //} else {
+            //System.out.println("error");
+        //}
+    }
 }

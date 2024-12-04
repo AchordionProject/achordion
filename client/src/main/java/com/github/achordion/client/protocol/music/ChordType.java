@@ -1,7 +1,7 @@
 package com.github.achordion.client.protocol.music;
 
 public enum ChordType {
-    MAJOR, MINOR, MAJOR7, MINOR7;
+    UNDEFINED, MAJOR, MINOR, MAJOR7, MINOR7;
 
     public static ChordType getChordTypeFromInt(int num) {
         ChordType[] values = ChordType.values();
@@ -10,5 +10,15 @@ public enum ChordType {
             return null;
         }
         return values[num];
+    }
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case MINOR -> "m";
+            case MAJOR7 -> "7";
+            case MINOR7 -> "m7";
+            default -> "";
+        };
     }
 }
