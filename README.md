@@ -22,16 +22,6 @@ Achordion enhances musical engagement by converting audio input into a structure
 git clone https://github.com/AchordionProject/achordion.git
 ```
 
-### Client
-``` sh
-cd client
-# Unix
-./mnvw clean javafx:run
-
-# Windows
-mvnw.cmd clean javafx:run
-```
-
 ### Server
 ``` sh
 # NOTE: The commands for running on Windows may slightly differ.
@@ -43,6 +33,21 @@ pip3 install -r requirements.txt
 python3 main.py
 # Windows
 # use python.exe and pip.exe instead
+```
+
+### Client
+``` sh
+cd client
+# Unix
+./mvnw clean javafx:run
+
+# Windows
+mvnw.cmd clean javafx:run
+```
+
+Alternatively you can download the archive with jar file from Releases and run it with
+``` sh
+java -jar <name-of-jar-file>
 ```
 
 ## Technologies used
