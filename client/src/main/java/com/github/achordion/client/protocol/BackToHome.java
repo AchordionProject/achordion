@@ -1,4 +1,5 @@
 package com.github.achordion.client.protocol;
+import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ public class BackToHome {
     //Should only be used for offline button
     public static void goToStart(Button backButton){
         FXMLLoader loader;
+        ChordListener chordListener;
         if(MainController.getInstance().isConnected()){
             loader = new FXMLLoader(BackToHome.class.getResource("/com/github/achordion/client/Windows/SecondWindow.fxml"));
         } else {
@@ -19,12 +21,14 @@ public class BackToHome {
         }
         try {
             Parent root = loader.load();
+            chordListener = loader.getController();
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.setMaxHeight(568);
             stage.setMaxWidth(693);
+            MainHandler.getInstance().addChordListener(chordListener);
 
             stage.show();
         }catch(IOException e){

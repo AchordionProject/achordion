@@ -117,8 +117,9 @@ public class SecondWindowController implements ChordListener, DisconnectListener
 
     @Override
     public void onChordEvent(ChordEvent event) {
-        Platform.runLater(() -> this.chords.setText(event.getData().toString()) );
-        System.out.println(event.getData());
+        Platform.runLater(() -> {this.chords.setText(event.getData().toString());
+            System.out.println(this.chords.getText());});
+        System.out.println("Received chords " + event.getData().toString());
     }
 
     @Override
@@ -147,7 +148,6 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         //if (textField != null) {
             System.out.println("The button was clicked");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
-            OfflineWindowController offlineWindowController = loader.getController();
             Stage stage = (Stage) chordLibButton.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
             stage.setMaxHeight(568);
