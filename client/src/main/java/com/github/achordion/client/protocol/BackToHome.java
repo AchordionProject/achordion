@@ -20,19 +20,20 @@ public class BackToHome {
             loader = new FXMLLoader(BackToHome.class.getResource("/com/github/achordion/client/Windows/Start-View.fxml"));
         }
         try {
-            Parent root = loader.load();
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setFullScreen(false);
-            stage.setMaxHeight(568);
-            stage.setMaxWidth(693);
-            if(MainController.getInstance().isConnected()){
-                chordListener = loader.getController();
-                MainHandler.getInstance().addChordListener(chordListener);
-            }
-
-            stage.show();
+            WindowLoader.loadWindow(loader,backButton);
+//            Parent root = loader.load();
+//            Stage stage = (Stage) backButton.getScene().getWindow();
+//            Scene scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.setFullScreen(false);
+//            stage.setMaxHeight(568);
+//            stage.setMaxWidth(693);
+//            if(MainController.getInstance().isConnected()){
+//                chordListener = loader.getController();
+//                MainHandler.getInstance().addChordListener(chordListener);
+//            }
+//
+//            stage.show();
         }catch(IOException e){
             AlertClass.ShowError("ERROR","ERROR","Error loading the start page");
         }
