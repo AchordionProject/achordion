@@ -21,14 +21,16 @@ public class BackToHome {
         }
         try {
             Parent root = loader.load();
-            chordListener = loader.getController();
             Stage stage = (Stage) backButton.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setFullScreen(false);
             stage.setMaxHeight(568);
             stage.setMaxWidth(693);
-            MainHandler.getInstance().addChordListener(chordListener);
+            if(MainController.getInstance().isConnected()){
+                chordListener = loader.getController();
+                MainHandler.getInstance().addChordListener(chordListener);
+            }
 
             stage.show();
         }catch(IOException e){
