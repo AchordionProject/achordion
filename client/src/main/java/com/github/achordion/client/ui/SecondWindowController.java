@@ -12,8 +12,12 @@ import com.github.achordion.client.protocol.handling.listeners.ChordListener;
 import com.github.achordion.client.protocol.handling.listeners.DisconnectListener;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.event.ActionEvent;
 import javafx.scene.text.Font;
@@ -24,6 +28,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
+
 
 public class SecondWindowController implements ChordListener, DisconnectListener, AudioListener {
 
@@ -37,7 +42,8 @@ public class SecondWindowController implements ChordListener, DisconnectListener
     @FXML
     private Button browseFileButton;
     private AudioRecorder audioRecorder;
-
+    @FXML
+    private Button chordLibButton;
     @FXML
     public void initialize() {
         /*
@@ -130,4 +136,25 @@ public class SecondWindowController implements ChordListener, DisconnectListener
         BackToHome.ExitConnectionToHome(BackButton, mainController);
     }
 
+    /*
+    @FXML
+    public void onChordLibClicked(ActionEvent event) {
+        ToOfflineFromOnline.ChordLibButton(chordLibButton);
+    }
+     */
+    @FXML
+    public void onChordLibClicked() throws IOException {
+        //if (textField != null) {
+            System.out.println("The button was clicked");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/github/achordion/client/Windows/OfflineWindow.fxml"));
+            OfflineWindowController offlineWindowController = loader.getController();
+            Stage stage = (Stage) chordLibButton.getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.setMaxHeight(568);
+            stage.setMaxWidth(693);
+            stage.show();
+        //} else {
+            //System.out.println("error");
+        //}
+    }
 }
