@@ -39,6 +39,8 @@ public class StartPageController {
         stage.setScene(new Scene(root));
         stage.setMaxHeight(568);
         stage.setMaxWidth(693);
+        stage.setMinHeight(519.75);
+        stage.setMinWidth(693);
         stage.show();
     }
 
