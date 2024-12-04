@@ -23,17 +23,17 @@ public class OfflineWindowController {
         @FXML public ChoiceBox<String> Abox;
         @FXML public Label chordSelected;
         @FXML private Button BackButton;
-    @FXML
-    public void onBackButtonClicked(ActionEvent event) {
-        System.out.println("Back button clicked");
-        if (BackButton == null) {
-            System.err.println("BackButton is null!");
+        @FXML
+        public void onBackButtonClicked(ActionEvent event) {
+            System.out.println("Back button clicked");
+            if (BackButton == null) {
+                System.err.println("BackButton is null!");
+            }
+            if (mainController == null) {
+                System.err.println("mainController is null!");
+            }
+            BackToHome.goToStart(BackButton);
         }
-        if (mainController == null) {
-            System.err.println("mainController is null!");
-        }
-        BackToHome.goToStart(BackButton);
-    }
 
 
         public void onDisconnect(DisconnectEvent event) {
@@ -65,7 +65,7 @@ public class OfflineWindowController {
                     playChord(newValue);
 
                     // Display the selected chord on the screen
-                    chordSelected.setText(newValue);
+                    //chordSelected.setText(newValue);
                     //System.out.println("Updating label to: " + newValue); // Debug statement
                     //chordSelected.setText("Selected Chord: " + newValue);
                 }
@@ -76,53 +76,68 @@ public class OfflineWindowController {
     private void playChord(String selectedChord) {
         String audioFilePath;
         switch (selectedChord) {
+            // A
             case "A major":
                 audioFilePath = "/com/github/achordion/client/Chords/A_major.wav";
+                chordSelected.setText("A - C# - E");
                 break;
             case "A minor":
                 audioFilePath = "/com/github/achordion/client/Chords/A_minor.wav";
+                chordSelected.setText("A - C - E");
                 break;
-            //
+            // B
             case "B major":
                 audioFilePath = "/com/github/achordion/client/Chords/B_major.wav";
+                chordSelected.setText("B - D# - F#");
                 break;
             case "B minor":
                 audioFilePath = "/com/github/achordion/client/Chords/B_minor.wav";
+                chordSelected.setText("B - D - F#");
                 break;
-                //
+            // C
             case "C major":
-                audioFilePath = "/com/github/achordion/client/Chords/C_major.wav";    
+                audioFilePath = "/com/github/achordion/client/Chords/C_major.wav";
+                chordSelected.setText("C - E - G");
                 break;
             case "C minor":
                 audioFilePath = "/com/github/achordion/client/Chords/C_minor.wav";
+                chordSelected.setText("C - Eb - G");
                 break;
-            //
+            // D
             case "D major":
                 audioFilePath = "/com/github/achordion/client/Chords/D_major.wav";
+                chordSelected.setText("D - F# - A");
                 break;
             case "D minor":
                 audioFilePath = "/com/github/achordion/client/Chords/D_minor.wav";
+                chordSelected.setText("D - F - A");
                 break;
-            //
+            // E
             case "E major":
                 audioFilePath = "/com/github/achordion/client/Chords/E_major.wav";
+                chordSelected.setText("E - G# - B");
                 break;
             case "E minor":
                 audioFilePath = "/com/github/achordion/client/Chords/E_minor.wav";
+                chordSelected.setText("E - G - B");
                 break;
-            //
+            // F
             case "F major":
                 audioFilePath = "/com/github/achordion/client/Chords/F_major.wav";
+                chordSelected.setText("F - A - C");
                 break;
             case "F minor":
                 audioFilePath = "/com/github/achordion/client/Chords/F_minor.wav";
+                chordSelected.setText("F - Ab - C");
                 break;
-            //
+            // G
             case "G major":
                 audioFilePath = "/com/github/achordion/client/Chords/G_major.wav";
+                chordSelected.setText("G - B - D");
                 break;
             case "G minor":
                 audioFilePath = "/com/github/achordion/client/Chords/G_minor.wav";
+                chordSelected.setText("G - Bb - D");
                 break;
 
             default:
@@ -130,19 +145,20 @@ public class OfflineWindowController {
                 return;
         }
 
-//        try {
-//            URL audioURL = getClass().getResource(audioFilePath);
-//            if (audioURL != null) {
-//                File audioFile = new File(audioURL.getPath());
-//                audioRecorder.playAudio(audioFile);
-//                System.out.println(selectedChord + " was played");
-//            } else {
-//                System.err.println("Could not find audio file: " + audioFilePath);
-//            }
-//        } catch (Exception e) {
-//            System.err.println("Error playing chord: " + e.getMessage());
-//        }
+        try {
+            URL audioURL = getClass().getResource(audioFilePath);
+            if (audioURL != null) {
+                File audioFile = new File(audioURL.getPath());
+                audioRecorder.playAudio(audioFile);
+                System.out.println(selectedChord + " was played");
+            } else {
+                System.err.println("Could not find audio file: " + audioFilePath);
+            }
+        } catch (Exception e) {
+            System.err.println("Error playing chord: " + e.getMessage());
+        }
     }
+
 
     //create a choice box
 //    @FXML
